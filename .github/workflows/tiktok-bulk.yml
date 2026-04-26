@@ -43,36 +43,36 @@ jobs:
             exit 0
           fi
 
-      - name: Extract and validate Gist URL from commit message
-        id: extract_gist
+      - name: Extract TikTok URLs from commit message
         shell: bash
         run: |
           set -euo pipefail
 
           MSG="${{ steps.commit_msg.outputs.message }}"
 
-          GIST_URL="$(printf '%s\n' "$MSG" | perl -nle 'if (/tiktok-bulk:\s*(https:\/\/gist\.github\.com\/[A-Za-z0-9_.-]+\/[A-Fa-f0-9]+)/) { print $1; exit }')"
+          # Extract everything after "tiktok-bulk:"
+          URL_BLOCK="$(printf '%s\n' "$MSG" | perl -0ne 'if (/tiktok-bulk:\s*(.+)/s) { print $1 }')"
 
-          if [ -z "${GIST_URL:-}" ]; then
-            echo "ERROR: Could not extract a valid GitHub Gist URL from commit message."
-            echo "Expected format:"
-            echo "  tiktok-bulk: https://gist.github.com/USERNAME/GIST_ID"
+          if [ -z "${URL_BLOCK:-}" ]; then
+            echo "ERROR: No URLs found after 'tiktok-bulk:'."
             exit 1
           fi
 
-          if ! printf '%s' "$GIST_URL" | grep -Eq '^https://gist\.github\.com/[A-Za-z0-9_.-]+/[A-Fa-f0-9]+/?$'; then
-            echo "ERROR: Invalid Gist URL format: $GIST_URL"
+          # Extract only TikTok URLs
+          printf '%s\n' "$URL_BLOCK" \
+            | grep -Eo 'https://([A-Za-z0-9-]+\.)?(tiktok\.com|vm\.tiktok\.com)/[^[:space:]]+' \
+            | sed 's/[),.;]*$//' \
+            | sort -u > tiktok_urls.txt
+
+          if [ ! -s tiktok_urls.txt ]; then
+            echo "ERROR: No valid TikTok URLs found in commit message."
+            echo "Example format:"
+            echo '  tiktok-bulk: https://www.tiktok.com/@user/video/1 https://vm.tiktok.com/abc/'
             exit 1
           fi
 
-          GIST_ID="$(printf '%s' "$GIST_URL" | awk -F/ '{print $NF}')"
-          if [ -z "${GIST_ID:-}" ]; then
-            echo "ERROR: Failed to extract Gist ID."
-            exit 1
-          fi
-
-          echo "gist_url=$GIST_URL" >> "$GITHUB_OUTPUT"
-          echo "gist_id=$GIST_ID" >> "$GITHUB_OUTPUT"
+          echo "TikTok URLs found:"
+          cat tiktok_urls.txt
 
       - name: Install dependencies
         shell: bash
@@ -82,7 +82,6 @@ jobs:
           sudo apt-get install -y \
             python3 \
             python3-pip \
-            jq \
             zip \
             unzip \
             ffmpeg \
@@ -91,80 +90,6 @@ jobs:
           python3 -m pip install --upgrade pip
           python3 -m pip install --no-cache-dir yt-dlp
 
-      - name: Fetch Gist metadata and extract raw file URLs
-        id: fetch_gist
-        shell: bash
-        env:
-          GIST_ID: ${{ steps.extract_gist.outputs.gist_id }}
-        run: |
-          set -euo pipefail
-
-          API_URL="https://api.github.com/gists/${GIST_ID}"
-          curl -fsSL \
-            -H "Accept: application/vnd.github+json" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            "$API_URL" \
-            -o gist.json
-
-          if ! jq -e '.files and (.files | length > 0)' gist.json >/dev/null; then
-            echo "ERROR: Gist has no files or could not be parsed."
-            exit 1
-          fi
-
-          jq -r '.files[]?.raw_url // empty' gist.json > raw_urls.txt
-
-          if [ ! -s raw_urls.txt ]; then
-            echo "ERROR: No raw file URLs found in Gist."
-            exit 1
-          fi
-
-          echo "Found raw Gist file URLs:"
-          cat raw_urls.txt
-
-      - name: Download Gist raw content
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          : > gist_content.txt
-
-          while IFS= read -r RAW_URL; do
-            [ -n "$RAW_URL" ] || continue
-
-            # Extra safety: only allow raw.githubusercontent.com
-            if ! printf '%s' "$RAW_URL" | grep -Eq '^https://gist\.githubusercontent\.com/'; then
-              echo "ERROR: Refusing non-gist raw URL: $RAW_URL"
-              exit 1
-            fi
-
-            echo "" >> gist_content.txt
-            echo "# SOURCE: $RAW_URL" >> gist_content.txt
-            curl -fsSL "$RAW_URL" >> gist_content.txt
-            echo "" >> gist_content.txt
-          done < raw_urls.txt
-
-          if [ ! -s gist_content.txt ]; then
-            echo "ERROR: Gist content is empty."
-            exit 1
-          fi
-
-      - name: Extract TikTok URLs from Gist content
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          grep -Eo 'https://([A-Za-z0-9-]+\.)?(tiktok\.com|vm\.tiktok\.com)/[^[:space:]]+' gist_content.txt \
-            | sed 's/[),.;]*$//' \
-            | sort -u > tiktok_urls.txt
-
-          if [ ! -s tiktok_urls.txt ]; then
-            echo "ERROR: No TikTok URLs found in Gist content."
-            exit 1
-          fi
-
-          echo "TikTok URLs found:"
-          cat tiktok_urls.txt
-
       - name: Download TikTok videos with yt-dlp
         shell: bash
         run: |
@@ -172,9 +97,6 @@ jobs:
 
           mkdir -p tmp_downloads downloads
 
-          # Use a stable naming pattern.
-          # --restrict-filenames avoids unsafe characters in filenames.
-          # --no-playlist ensures each URL is treated safely as a single target unless yt-dlp resolves otherwise.
           yt-dlp \
             --ignore-errors \
             --no-playlist \
