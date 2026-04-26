@@ -1,7 +1,7 @@
 Scrape new videos from https://urlebird.com/tw/user/jaedengomezz/
 
 
-# TikTok Commit Scraper 5
+# TikTok Commit Scraper 6
 
 This repository uses GitHub Actions and Python (Playwright) to automatically scrape public video URLs from a TikTok profile.
 
