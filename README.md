@@ -1,4 +1,4 @@
-1
+2
 tiktok-bulk:
 https://url1
 https://url2
