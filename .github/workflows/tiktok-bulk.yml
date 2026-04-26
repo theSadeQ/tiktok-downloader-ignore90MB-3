@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   tiktok-download:
-    # Do not run again on the bot commit created by this workflow.
+    # Prevent the workflow's own commit from triggering another run.
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
 
     runs-on: ubuntu-latest
@@ -35,14 +35,17 @@ jobs:
           python3 -m pip install --upgrade pip
           python3 -m pip install --upgrade yt-dlp curl_cffi
 
+          echo "yt-dlp version:"
           yt-dlp --version
 
       - name: Extract URLs and download TikTok files
         shell: bash
         env:
-          # Optional:
-          # If TikTok blocks public downloads, add this repo secret:
-          # TIKTOK_COOKIES_B64 = base64 encoded cookies.txt
+          # Optional secret.
+          # If TikTok blocks public downloads, add a repo secret named:
+          # TIKTOK_COOKIES_B64
+          #
+          # It should contain base64-encoded cookies.txt content.
           TIKTOK_COOKIES_B64: ${{ secrets.TIKTOK_COOKIES_B64 }}
         run: |
           set -u
@@ -58,17 +61,6 @@ jobs:
           cat "$MSG_FILE"
           echo "=========================="
 
-          # Detect the first supported command.
-          #
-          # Supported commands:
-          #   tiktok-download:
-          #   tiktok-zip:
-          #   download:
-          #   download-zip:
-          #
-          # Why this parser exists:
-          # The old parser only captured URLs on the same line as the command.
-          # This one captures URLs both on the command line and on following lines.
           COMMAND="$(
             grep -Eim1 '^[[:space:]]*(tiktok-zip|download-zip|tiktok-download|download):' "$MSG_FILE" \
               | sed -E 's/^[[:space:]]*([^:]+):.*/\1/I' \
@@ -102,17 +94,6 @@ jobs:
           echo "Detected command: $COMMAND"
           echo "Download mode: $MODE"
 
-          # Extract every URL after the command line.
-          #
-          # This supports both:
-          #
-          #   tiktok-download: https://example.com/1 https://example.com/2
-          #
-          # and:
-          #
-          #   tiktok-download:
-          #   https://example.com/1
-          #   https://example.com/2
           URLS="$(
             awk '
               BEGIN { capture = 0 }
@@ -148,7 +129,6 @@ jobs:
           echo "$URLS"
           echo "============================"
 
-          # Optional cookies support.
           COOKIES_ARGS=()
           if [ -n "${TIKTOK_COOKIES_B64:-}" ]; then
             echo "Using TikTok cookies from TIKTOK_COOKIES_B64 secret."
@@ -175,35 +155,32 @@ jobs:
 
             BEFORE_COUNT="$(count_files)"
 
-            # We intentionally do not let one failed URL stop the whole workflow.
+            # Important:
+            # We do NOT use --impersonate chrome here.
             #
-            # Important choices:
-            # --download-archive:
-            #   Prevents re-downloading already downloaded videos.
+            # Why?
+            # Your runner showed:
+            #   Impersonate target "chrome" is not available
             #
-            # --ignore-errors and --no-abort-on-error:
-            #   Useful for playlists/profiles where some entries may fail.
-            #
-            # --impersonate chrome:
-            #   Uses curl_cffi browser impersonation when available, which can help
-            #   with TikTok request checks.
-            #
-            # Output path:
-            #   Keeps uploader folders, which makes bulk downloads easier to browse.
-            yt-dlp \
+            # That means yt-dlp could not use that impersonation target.
+            # Removing it makes the workflow portable and prevents this crash.
+            if yt-dlp \
               --ignore-errors \
               --no-abort-on-error \
               --no-mtime \
               --download-archive downloaded_archive.txt \
               --format "bv*+ba/b" \
               --merge-output-format mp4 \
-              --impersonate chrome \
               "${COOKIES_ARGS[@]}" \
               --paths "tmp_downloads" \
               -o "%(uploader|unknown_uploader)s/%(upload_date>%Y-%m-%d|unknown_date)s_%(title).80B_%(id)s.%(ext)s" \
-              "$URL"
+              "$URL"; then
 
-            EXIT_CODE=$?
+              EXIT_CODE=0
+            else
+              EXIT_CODE=$?
+            fi
+
             AFTER_COUNT="$(count_files)"
 
             if [ "$EXIT_CODE" -ne 0 ]; then
@@ -217,7 +194,11 @@ jobs:
               SUCCESSFUL_URLS=$((SUCCESSFUL_URLS + 1))
             else
               echo "⚠️ No new file appeared for this URL."
-              echo "This may mean it failed, was already in downloaded_archive.txt, or TikTok blocked it."
+              echo "Possible reasons:"
+              echo "  1. It was already downloaded and listed in downloaded_archive.txt"
+              echo "  2. TikTok blocked public access"
+              echo "  3. The URL is invalid or unavailable"
+              echo "  4. Cookies are required"
             fi
           done <<< "$URLS"
 
@@ -240,9 +221,6 @@ jobs:
 
             ARCHIVE_BASE="tiktok_bulk_$(date +%Y%m%d_%H%M%S)"
 
-            # Why cd into tmp_downloads?
-            # It puts the contents inside the archive cleanly while preserving
-            # uploader folders created by yt-dlp.
             (
               cd tmp_downloads
               zip -r -s 90m "../downloads/${ARCHIVE_BASE}.zip" .
@@ -253,8 +231,6 @@ jobs:
 
           else
             echo "📁 Copying downloaded files to downloads/..."
-
-            # cp -a preserves directory structure, timestamps, and file attributes.
             cp -a tmp_downloads/. downloads/
           fi
 
