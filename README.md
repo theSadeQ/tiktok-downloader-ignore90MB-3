@@ -1,5 +1,5 @@
 Scrape https://www.tiktok.com/@jaedengomezz
-# TikTok Commit Scraper 3
+# TikTok Commit Scraper 4
 
 This repository uses GitHub Actions and Python (Playwright) to automatically scrape public video URLs from a TikTok profile.
 
