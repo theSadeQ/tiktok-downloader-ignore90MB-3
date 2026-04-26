@@ -1,26 +1,25 @@
-name: Scrape TikTok URLs
+name: Scrape TikTok URLs via Mirror
 
 on:
   push:
-    branches: [ "**" ]
-
-permissions:
-  contents: write
+    branches:
+      - main
+      - master # Triggers on push to main/master
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    # WHY: This is our circuit breaker. If the commit message contains [skip ci], 
-    # the Action will skip this entire job. This prevents the bot from triggering 
-    # itself over and over when it commits the scraped URLs.
+    
+    # CRITICAL: Prevent infinite loop. If the commit was made by the bot, skip this run!
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    
+    permissions:
+      contents: write # Needed so the bot can push the .txt file back
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # WHY: fetch-depth: 0 pulls the entire git history, not just the latest commit. 
-          # This ensures git commands like `git log` work properly when we extract the URL.
           fetch-depth: 0
 
       - name: Set up Python
@@ -29,50 +28,45 @@ jobs:
           python-version: '3.12'
 
       - name: Install dependencies
-        # WHY: We only need standard Playwright now because we are scraping a mirror 
-        # site (Urlebird) that doesn't have the aggressive anti-bot walls of TikTok.
         run: |
           python -m pip install --upgrade pip
           pip install playwright
           playwright install chromium
 
-      - name: Extract URL and Run Scraper
+      - name: Extract TikTok URL from commit message
+        id: extract_url
         run: |
-          # 1. Grab the latest commit message
-          COMMIT_MSG=$(git log -1 --pretty=%B)
+          COMMIT_MSG="${{ github.event.head_commit.message }}"
+          # Use grep to find a standard tiktok.com/@username URL in the commit body
+          URL=$(echo "$COMMIT_MSG" | grep -oP 'https://(?:www\.)?tiktok\.com/@[a-zA-Z0-9_.-]+' | head -n 1)
           
-          # 2. Extract the first valid TikTok URL using a Regular Expression (regex)
-          URL=$(echo "$COMMIT_MSG" | grep -Eo 'https?://(www\.)?tiktok\.com/@[a-zA-Z0-9_.-]+' | head -n 1)
-          
-          if [ -n "$URL" ]; then
-            echo "Found TikTok URL: $URL"
-            # 3. Pass the URL as an argument to our Python script
-            python scripts/scrape_tiktok_urls.py "$URL"
+          if [ -z "$URL" ]; then
+            echo "No TikTok URL found in commit message. Skipping."
           else
-            echo "No TikTok URL found in commit message. Skipping scraper."
+            echo "Found URL: $URL"
           fi
+          
+          echo "url=$URL" >> $GITHUB_OUTPUT
+
+      - name: Run Scraper
+        # Only run if the previous step successfully found a URL
+        if: steps.extract_url.outputs.url != ''
+        run: |
+          python scripts/scrape_tiktok_urls.py "${{ steps.extract_url.outputs.url }}"
 
       - name: Commit and Push results
+        if: steps.extract_url.outputs.url != ''
         run: |
-          # WHY: We must configure a git identity so GitHub knows who is making the commit.
-          # We use the standard github-actions bot identity.
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          
-          # Stage the text files and any debug screenshots saved in the downloads folder
           git add downloads/
           
-          # WHY: git diff --staged --quiet checks if there are actually changes to commit.
-          # If the bot didn't find any new videos, this prevents it from throwing an error
-          # for trying to commit an empty change.
-          if ! git diff --staged --quiet; then
-            # The [skip ci] tag here is absolutely mandatory to stop the infinite loop!
-            git commit -m "chore: add scraped TikTok URLs from mirror [skip ci]"
-            
-            # WHY: A rebase pull ensures we smoothly apply our new commit on top of 
-            # any other changes that might have happened in the repository just now.
-            git pull --rebase origin ${{ github.ref_name }}
-            git push
+          # Only attempt to commit if the scraper actually created/modified files
+          if git diff --staged --quiet; then
+            echo "No new URLs to commit."
           else
-            echo "No new URLs or files to commit."
+            git commit -m "chore: update scraped URLs for ${{ steps.extract_url.outputs.url }} [skip ci]"
+            # Rebase in case another commit was pushed while the scraper was running
+            git pull --rebase origin HEAD
+            git push
           fi
