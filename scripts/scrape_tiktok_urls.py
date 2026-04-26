@@ -1,150 +1,82 @@
 import sys
 import re
-import asyncio
-from pathlib import Path
-from urllib.parse import urlparse, urlunparse
-from playwright.async_api import async_playwright, TimeoutError
+import time
+import os
+from playwright.sync_api import sync_playwright
 
-def normalize_profile_url(url: str) -> tuple[str, str]:
-    """Ensures the URL is formatted correctly and extracts the username."""
-    if not url.startswith("http"):
-        url = "https://" + url
-    
-    parsed = urlparse(url)
-    path_parts = [p for p in parsed.path.split('/') if p]
-    
-    username = ""
-    for part in path_parts:
-        if part.startswith('@'):
-            username = part[1:]
-            break
-    
-    if not username and path_parts:
-        username = path_parts[0]
-        
-    normalized_url = f"https://www.tiktok.com/@{username}"
-    return normalized_url, username
-
-def clean_video_url(url: str) -> str:
-    """Removes query parameters from the video URL."""
-    parsed = urlparse(url)
-    clean = urlunparse((parsed.scheme, parsed.netloc, parsed.path, '', '', ''))
-    return clean
-
-async def main():
+def main():
+    # 1. Validate Input
     if len(sys.argv) < 2:
-        print("Usage: python scrape_tiktok_urls.py <profile_url>")
+        print("Usage: python scrape_tiktok_urls.py <tiktok_url>")
         sys.exit(1)
 
-    raw_url = sys.argv[1]
-    profile_url, username = normalize_profile_url(raw_url)
-    print(f"Targeting profile: {profile_url} (Username: {username})")
-
-    # Setup output directory
-    downloads_dir = Path("downloads")
-    downloads_dir.mkdir(exist_ok=True)
-    output_file = downloads_dir / f"tiktok_{username}_urls.txt"
+    tiktok_url = sys.argv[1]
     
-    # Debug file paths
-    debug_initial = downloads_dir / f"debug_1_initial_{username}.png"
-    debug_scrolled = downloads_dir / f"debug_2_scrolled_{username}.png"
-    debug_source = downloads_dir / f"debug_3_source_{username}.html"
-
-    async with async_playwright() as p:
-        # 1. Native Stealth: Remove Automation flags
-        browser = await p.chromium.launch(
-            headless=True,
-            args=[
-                '--no-sandbox', 
-                '--disable-setuid-sandbox',
-                '--disable-blink-features=AutomationControlled'
-            ]
-        )
+    # 2. Extract the username from the official TikTok URL
+    # Regex looks for the '@' symbol and captures everything up to the next space or slash
+    match = re.search(r'@([a-zA-Z0-9_.-]+)', tiktok_url)
+    if not match:
+        print(f"Error: Could not extract a valid username from {tiktok_url}")
+        sys.exit(1)
         
-        # 2. Native Stealth: Provide a highly realistic User-Agent
-        context = await browser.new_context(
-            viewport={"width": 1920, "height": 1080},
-            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
-        )
-        page = await context.new_page()
-        
-        # 3. Native Stealth: Delete the "webdriver" variable via JS injection before TikTok's scripts load
-        await page.add_init_script("""
-            Object.defineProperty(navigator, 'webdriver', {
-                get: () => undefined
-            });
-        """)
+    username = match.group(1)
+    
+    # 3. Construct the localized Mirror Site URL (Urlebird Taiwan endpoint)
+    urlebird_url = f"https://urlebird.com/tw/user/{username}/"
+    print(f"Targeting mirror site: {urlebird_url}")
 
+    with sync_playwright() as p:
+        # Launch Chromium headless (no stealth needed for Urlebird!)
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        
         try:
-            print("Navigating to profile...")
-            await page.goto(profile_url, wait_until="domcontentloaded", timeout=60000)
+            # Go to the mirror site
+            page.goto(urlebird_url, wait_until="domcontentloaded", timeout=60000)
             
-            print("Waiting 5 seconds to clear potential bot checks...")
-            await asyncio.sleep(5)
+            # Scroll down a few times to trigger lazy-loading of images/videos
+            # Note: The image shows a "加載更多" (Load More) button, but scrolling 
+            # often triggers the initial batch load.
+            for _ in range(3):
+                page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                time.sleep(1.5)
+                
+            # 4. Extract all link elements that point to a video
+            # We look for any <a> tag whose href contains '/video/'
+            links = page.eval_on_selector_all(
+                "a[href*='/video/']", 
+                "elements => elements.map(el => el.href)"
+            )
             
-            print("Capturing initial debug screenshot...")
-            await page.screenshot(path=str(debug_initial), full_page=True)
-
-            print("Scrolling down smoothly to trigger lazy-loaded videos...")
-            await page.evaluate("""
-                async () => {
-                    await new Promise((resolve) => {
-                        let totalHeight = 0;
-                        const distance = 300;
-                        const timer = setInterval(() => {
-                            const scrollHeight = document.body.scrollHeight;
-                            window.scrollBy(0, distance);
-                            totalHeight += distance;
-                            
-                            if (totalHeight >= scrollHeight || totalHeight > 15000) {
-                                clearInterval(timer);
-                                resolve();
-                            }
-                        }, 200);
-                    });
-                }
-            """)
-
-            print("Waiting for final DOM elements to render...")
-            await asyncio.sleep(2)
-
-            print("Capturing post-scroll debug data...")
-            await page.screenshot(path=str(debug_scrolled), full_page=True)
-            html_content = await page.content()
-            with open(debug_source, "w", encoding="utf-8") as f:
-                f.write(html_content)
-
-            print("Extracting links...")
-            links = await page.locator("a").all()
+            video_ids = set() # Use a set to automatically remove duplicates
             
-            video_urls = set()
-            video_pattern = re.compile(r"^https?://(?:www\.)?tiktok\.com/@[^/]+/video/\d+")
-            
+            # 5. Extract IDs and Reconstruct
             for link in links:
-                href = await link.get_attribute("href")
-                if href and video_pattern.match(href):
-                    clean_url = clean_video_url(href)
-                    video_urls.add(clean_url)
-            
-            sorted_urls = sorted(list(video_urls))
-            
-            with open(output_file, "w") as f:
-                for url in sorted_urls:
-                    f.write(url + "\n")
-            
-            print(f"SUCCESS: Found {len(sorted_urls)} video URLs.")
-            print(f"Saved to {output_file}")
-            
-            if len(sorted_urls) == 0:
-                print("\nWARNING: ZERO URLS FOUND.")
-                print("Please check the debug images in the downloads folder to see what the bot actually saw.")
-            
-        except TimeoutError:
-            print("Error: Page load timed out.")
+                # Regex looks for a dash, followed by numbers, optionally ending with a slash
+                # e.g., "title-of-video-7123456789/" -> captures "7123456789"
+                id_match = re.search(r'-(\d+)/?$', link)
+                if id_match:
+                    video_ids.add(id_match.group(1))
+                    
+            if not video_ids:
+                print("No video IDs found. The page might be empty or the structure changed.")
+            else:
+                # 6. Save the reconstructed Official TikTok URLs
+                os.makedirs("downloads", exist_ok=True)
+                output_file = f"downloads/tiktok_{username}_urls.txt"
+                
+                with open(output_file, "w", encoding="utf-8") as f:
+                    # Sort reverse so newest (usually higher ID) is at the top
+                    for vid_id in sorted(video_ids, reverse=True): 
+                        official_url = f"https://www.tiktok.com/@{username}/video/{vid_id}"
+                        f.write(f"{official_url}\n")
+                        
+                print(f"Success! Scraped {len(video_ids)} video IDs and saved to {output_file}")
+                
         except Exception as e:
-            print(f"An error occurred: {e}")
+            print(f"An error occurred during scraping: {e}")
         finally:
-            await browser.close()
+            browser.close()
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
