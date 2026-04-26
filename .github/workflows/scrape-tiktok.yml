@@ -1,0 +1,81 @@
+name: Scrape TikTok URLs From Commit Message
+
+on:
+  push:
+    branches:
+      - "**"
+
+permissions:
+  contents: write
+
+jobs:
+  scrape-tiktok:
+    # PREVENT INFINITE LOOPS: Ignore commits made by the bot itself
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetches all history for all branches, required for pulling/pushing
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install playwright
+          playwright install chromium
+
+      - name: Extract TikTok URL from commit message
+        id: extract_url
+        run: |
+          # Read the latest commit message
+          COMMIT_MSG=$(git log -1 --pretty=%B)
+          
+          # Use grep to find the first TikTok-like URL.
+          # Matches: tiktok.com/@user, https://tiktok.com/user, etc.
+          RAW_URL=$(echo "$COMMIT_MSG" | grep -oE '(https?://)?(www\.)?tiktok\.com/(@)?[a-zA-Z0-9_.-]+' | head -n 1)
+          
+          # Strip trailing punctuation (like a period or parenthesis at the end of a sentence)
+          CLEAN_URL=$(echo "$RAW_URL" | sed 's/[.,;)]$//')
+          
+          if [ -n "$CLEAN_URL" ]; then
+            echo "Found URL: $CLEAN_URL"
+            # Modern way to set outputs in GitHub Actions
+            echo "url=$CLEAN_URL" >> "$GITHUB_OUTPUT"
+          else
+            echo "No TikTok URL found in the commit message."
+            echo "url=" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run Playwright Scraper
+        # Only run this step if a URL was successfully extracted
+        if: steps.extract_url.outputs.url != ''
+        run: |
+          python scripts/scrape_tiktok_urls.py "${{ steps.extract_url.outputs.url }}"
+
+      - name: Commit and Push results
+        if: steps.extract_url.outputs.url != ''
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Add only the downloads directory
+          git add downloads/
+          
+          # Check if there are any changes staged for commit
+          if git diff --staged --quiet; then
+            echo "No new files to commit."
+          else
+            # The [skip ci] tag is crucial here!
+            git commit -m "Save TikTok scraped URLs [skip ci]"
+            
+            # Pull with rebase to ensure we don't overwrite changes made while the workflow ran
+            git pull --rebase origin ${{ github.ref_name }}
+            git push origin ${{ github.ref_name }}
+          fi
