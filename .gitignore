@@ -1,9 +1,0 @@
-__pycache__/
-*.py[cod]
-*$py.class
-.venv/
-venv/
-env/
-playwright-report/
-test-results/
-.pytest_cache/
