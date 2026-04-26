@@ -4,7 +4,6 @@ import asyncio
 from pathlib import Path
 from urllib.parse import urlparse, urlunparse
 from playwright.async_api import async_playwright, TimeoutError
-from playwright_stealth import stealth_async
 
 def normalize_profile_url(url: str) -> tuple[str, str]:
     """Ensures the URL is formatted correctly and extracts the username."""
@@ -52,33 +51,40 @@ async def main():
     debug_source = downloads_dir / f"debug_3_source_{username}.html"
 
     async with async_playwright() as p:
-        # Launch Chromium with args to help prevent detection
+        # 1. Native Stealth: Remove Automation flags
         browser = await p.chromium.launch(
             headless=True,
-            args=['--no-sandbox', '--disable-setuid-sandbox']
+            args=[
+                '--no-sandbox', 
+                '--disable-setuid-sandbox',
+                '--disable-blink-features=AutomationControlled'
+            ]
         )
         
-        # Set a standard desktop viewport
+        # 2. Native Stealth: Provide a highly realistic User-Agent
         context = await browser.new_context(
-            viewport={"width": 1920, "height": 1080}
+            viewport={"width": 1920, "height": 1080},
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
         )
         page = await context.new_page()
         
-        # Apply stealth configuration to the page BEFORE navigating
-        await stealth_async(page)
+        # 3. Native Stealth: Delete the "webdriver" variable via JS injection before TikTok's scripts load
+        await page.add_init_script("""
+            Object.defineProperty(navigator, 'webdriver', {
+                get: () => undefined
+            });
+        """)
 
         try:
             print("Navigating to profile...")
             await page.goto(profile_url, wait_until="domcontentloaded", timeout=60000)
             
-            # Wait to clear potential Cloudflare/Turnstile verification
             print("Waiting 5 seconds to clear potential bot checks...")
             await asyncio.sleep(5)
             
             print("Capturing initial debug screenshot...")
             await page.screenshot(path=str(debug_initial), full_page=True)
 
-            # Mimic human smooth scrolling to trigger video loading
             print("Scrolling down smoothly to trigger lazy-loaded videos...")
             await page.evaluate("""
                 async () => {
@@ -90,7 +96,6 @@ async def main():
                             window.scrollBy(0, distance);
                             totalHeight += distance;
                             
-                            // Stop after scrolling down significantly or hitting bottom
                             if (totalHeight >= scrollHeight || totalHeight > 15000) {
                                 clearInterval(timer);
                                 resolve();
@@ -100,7 +105,6 @@ async def main():
                 }
             """)
 
-            # Give DOM a final moment to render after scrolling
             print("Waiting for final DOM elements to render...")
             await asyncio.sleep(2)
 
@@ -133,8 +137,7 @@ async def main():
             
             if len(sorted_urls) == 0:
                 print("\nWARNING: ZERO URLS FOUND.")
-                print("Even with stealth, TikTok might have detected the datacenter IP.")
-                print(f"Please check the debug images in the downloads folder to see what the bot actually saw.")
+                print("Please check the debug images in the downloads folder to see what the bot actually saw.")
             
         except TimeoutError:
             print("Error: Page load timed out.")
