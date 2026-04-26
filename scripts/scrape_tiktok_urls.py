@@ -5,68 +5,60 @@ import os
 from playwright.sync_api import sync_playwright
 
 def main():
-    # 1. Validate Input
+    # 1. Ensure we receive the Urlebird URL as an argument
     if len(sys.argv) < 2:
-        print("Usage: python scrape_tiktok_urls.py <tiktok_url>")
+        print("Usage: python scrape_tiktok_urls.py <urlebird_url>")
         sys.exit(1)
 
-    tiktok_url = sys.argv[1]
+    urlebird_url = sys.argv[1]
     
-    # 2. Extract the username from the official TikTok URL
-    # Regex looks for the '@' symbol and captures everything up to the next space or slash
-    match = re.search(r'@([a-zA-Z0-9_.-]+)', tiktok_url)
+    # 2. Extract the username directly from the Urlebird URL
+    # Looks for '/user/' followed by the username characters
+    match = re.search(r'/user/([a-zA-Z0-9_.-]+)', urlebird_url)
     if not match:
-        print(f"Error: Could not extract a valid username from {tiktok_url}")
+        print(f"Error: Could not extract username from {urlebird_url}")
         sys.exit(1)
         
     username = match.group(1)
-    
-    # 3. Construct the localized Mirror Site URL (Urlebird Taiwan endpoint)
-    urlebird_url = f"https://urlebird.com/tw/user/{username}/"
-    print(f"Targeting mirror site: {urlebird_url}")
+    print(f"Targeting mirror site: {urlebird_url} for user: @{username}")
 
     with sync_playwright() as p:
-        # Launch Chromium headless (no stealth needed for Urlebird!)
+        # Launch Chromium (No stealth arguments needed for Urlebird!)
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
         
         try:
-            # Go to the mirror site
             page.goto(urlebird_url, wait_until="domcontentloaded", timeout=60000)
             
-            # Scroll down a few times to trigger lazy-loading of images/videos
-            # Note: The image shows a "加載更多" (Load More) button, but scrolling 
-            # often triggers the initial batch load.
+            # Scroll down to trigger lazy-loading of the videos
             for _ in range(3):
                 page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
                 time.sleep(1.5)
                 
-            # 4. Extract all link elements that point to a video
-            # We look for any <a> tag whose href contains '/video/'
+            # 3. Find all video links on the page
             links = page.eval_on_selector_all(
                 "a[href*='/video/']", 
                 "elements => elements.map(el => el.href)"
             )
             
-            video_ids = set() # Use a set to automatically remove duplicates
+            video_ids = set() # Set prevents duplicates
             
-            # 5. Extract IDs and Reconstruct
+            # 4. Extract IDs from the Urlebird links
             for link in links:
-                # Regex looks for a dash, followed by numbers, optionally ending with a slash
-                # e.g., "title-of-video-7123456789/" -> captures "7123456789"
+                # Matches the numeric ID right before an optional trailing slash
+                # e.g., "title-12345/" -> captures "12345"
                 id_match = re.search(r'-(\d+)/?$', link)
                 if id_match:
                     video_ids.add(id_match.group(1))
                     
             if not video_ids:
-                print("No video IDs found. The page might be empty or the structure changed.")
+                print("No video IDs found. The page might be empty.")
             else:
-                # 6. Save the reconstructed Official TikTok URLs
+                # 5. Save the Reconstructed Official URLs
                 os.makedirs("downloads", exist_ok=True)
                 output_file = f"downloads/tiktok_{username}_urls.txt"
                 
                 with open(output_file, "w", encoding="utf-8") as f:
-                    # Sort reverse so newest (usually higher ID) is at the top
                     for vid_id in sorted(video_ids, reverse=True): 
                         official_url = f"https://www.tiktok.com/@{username}/video/{vid_id}"
                         f.write(f"{official_url}\n")
@@ -74,7 +66,7 @@ def main():
                 print(f"Success! Scraped {len(video_ids)} video IDs and saved to {output_file}")
                 
         except Exception as e:
-            print(f"An error occurred during scraping: {e}")
+            print(f"An error occurred: {e}")
         finally:
             browser.close()
 
