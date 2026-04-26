@@ -8,6 +8,7 @@ on:
 jobs:
   tiktok-download:
     runs-on: ubuntu-latest
+
     permissions:
       contents: write
 
@@ -16,13 +17,13 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - name: Install dependencies
         shell: bash
         run: |
-          set -euxo pipefail
           sudo apt-get update
-          sudo apt-get install -y ffmpeg zip findutils
+          sudo apt-get install -y ffmpeg zip python3
           python3 -m pip install --upgrade pip
           python3 -m pip install --no-cache-dir --upgrade yt-dlp "curl_cffi[requests]"
 
@@ -30,104 +31,54 @@ jobs:
         shell: bash
         run: |
           set -u
-
-          MSG="$(git log -1 --pretty=%B)"
-          echo "Commit message:"
-          echo "$MSG"
-
-          if echo "$MSG" | grep -qP 'tiktok-zip:'; then
-            MODE="zip"
-            URL_LINE="$(echo "$MSG" | grep -oP 'tiktok-zip:\s*\K.*')"
-            echo "Detected tiktok-zip mode."
-          elif echo "$MSG" | grep -qP 'tiktok-download:'; then
-            MODE="normal"
-            URL_LINE="$(echo "$MSG" | grep -oP 'tiktok-download:\s*\K.*')"
-            echo "Detected tiktok-download mode."
-          else
-            echo "No supported command found in commit message."
-            exit 1
-          fi
+          set -o pipefail
 
           mkdir -p downloads tmp_downloads
+          touch downloaded_archive.txt
 
-          YTDLP_HAS_ERRORS=0
+          echo "Reading commit message and extracting TikTok URLs..."
 
-          while IFS= read -r URL; do
-            [ -z "$URL" ] && continue
+          python3 <<'PY'
+          import re
+          import subprocess
+          import sys
+          from pathlib import Path
 
-            echo "Downloading: $URL"
+          msg = subprocess.check_output(
+              ["git", "log", "-1", "--pretty=%B"],
+              text=True,
+              errors="replace"
+          )
 
-            yt-dlp \
-              --ignore-errors \
-              --no-playlist \
-              --restrict-filenames \
-              --no-overwrites \
-              --retries 5 \
-              --fragment-retries 5 \
-              --sleep-requests 2 \
-              --sleep-interval 3 \
-              --max-sleep-interval 8 \
-              --download-archive downloaded_archive.txt \
-              --merge-output-format mp4 \
-              -o 'tmp_downloads/%(uploader|unknown_uploader)s/%(title|video)s-%(id)s.%(ext)s' \
-              "$URL"
+          print("Commit message:")
+          print(msg)
 
-            STATUS=$?
-            if [ "$STATUS" -ne 0 ]; then
-              echo "Warning: yt-dlp failed for $URL with exit code $STATUS"
-              YTDLP_HAS_ERRORS=1
-            fi
-          done <<< "$URL_LINE"
+          commands = [
+              ("zip", r"(?is)(?:^|\n)\s*tiktok-zip\s*:\s*(.*)"),
+              ("normal", r"(?is)(?:^|\n)\s*tiktok-download\s*:\s*(.*)"),
+          ]
 
-          MEDIA_COUNT="$(find tmp_downloads -type f | wc -l)"
-          if [ "$MEDIA_COUNT" -eq 0 ]; then
-            echo "No files were downloaded."
-            exit 1
-          fi
+          mode = None
+          block = ""
 
-          echo "Downloaded file count: $MEDIA_COUNT"
+          for candidate_mode, pattern in commands:
+              match = re.search(pattern, msg)
+              if match:
+                  mode = candidate_mode
+                  block = match.group(1)
+                  break
 
-          if [ "$MODE" = "zip" ]; then
-            ARCHIVE_NAME="tiktok_bulk_$(date +%Y%m%d_%H%M%S)"
-            ARCHIVE_PATH="downloads/${ARCHIVE_NAME}.zip"
+          if mode is None:
+              print("No tiktok-download: or tiktok-zip: command found. Nothing to do.")
+              Path("NO_COMMAND").write_text("1")
+              sys.exit(0)
 
-            echo "Creating archive: $ARCHIVE_PATH"
-            (
-              cd tmp_downloads
-              zip -r "../$ARCHIVE_PATH" .
-            )
+          urls = re.findall(r"https?://[^\s<>'\"]+", block)
 
-            SIZE=$(stat -c%s "$ARCHIVE_PATH")
-            LIMIT=$((90 * 1024 * 1024))
+          cleaned_urls = []
+          for url in urls:
+              url = url.rstrip(".,);]")
+              if "tiktok.com" in url or "vm.tiktok.com" in url or "vt.tiktok.com" in url:
+                  cleaned_urls.append(url)
 
-            if [ "$SIZE" -gt "$LIMIT" ]; then
-              echo "Archive exceeds 90MB, recreating as split archive..."
-
-              rm -f "$ARCHIVE_PATH"
-              (
-                cd tmp_downloads
-                zip -r -s 90m "../$ARCHIVE_PATH" .
-              )
-
-              echo "Split archive parts:"
-              ls -lh downloads/"${ARCHIVE_NAME}"*
-            else
-              echo "Archive is within 90MB."
-            fi
-          else
-            echo "Moving downloaded content into downloads/"
-            cp -R tmp_downloads/. downloads/
-          fi
-
-          rm -rf tmp_downloads
-
-          if [ "$YTDLP_HAS_ERRORS" -eq 1 ]; then
-            echo "Some downloads failed, but workflow will continue with successful files."
-          fi
-
-      - name: Split oversized non-zip files over 90MB
-        shell: bash
-        run: |
-          set -euxo pipefail
-
-          find downloads -type f ! -name '*.zip' ! -name '*.z[0-9
+          if not cleaned_urls
