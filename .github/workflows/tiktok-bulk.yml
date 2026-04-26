@@ -1,162 +1,133 @@
-name: TikTok Bulk Downloader
+name: TikTok Bulk Download & Save to Repo
 
 on:
   push:
     branches:
       - "**"
 
-permissions:
-  contents: write
-
-concurrency:
-  group: tiktok-bulk-${{ github.ref }}
-  cancel-in-progress: false
-
 jobs:
-  download_tiktok_bulk:
+  tiktok-download:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2
-
-      - name: Read latest commit message
-        id: commit_msg
-        shell: bash
-        run: |
-          set -euo pipefail
-          {
-            echo "message<<EOF"
-            git log -1 --pretty=%B
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
-
-      - name: Stop if commit does not request TikTok bulk download
-        shell: bash
-        run: |
-          set -euo pipefail
-          MSG="${{ steps.commit_msg.outputs.message }}"
-          if ! printf '%s\n' "$MSG" | grep -qE '(^|[[:space:]])tiktok-bulk:[[:space:]]+'; then
-            echo "No 'tiktok-bulk:' command found in commit message. Exiting successfully."
-            exit 0
-          fi
-
-      - name: Extract TikTok URLs from commit message
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          MSG="${{ steps.commit_msg.outputs.message }}"
-
-          # Extract everything after "tiktok-bulk:"
-          URL_BLOCK="$(printf '%s\n' "$MSG" | perl -0ne 'if (/tiktok-bulk:\s*(.+)/s) { print $1 }')"
-
-          if [ -z "${URL_BLOCK:-}" ]; then
-            echo "ERROR: No URLs found after 'tiktok-bulk:'."
-            exit 1
-          fi
-
-          # Extract only TikTok URLs
-          printf '%s\n' "$URL_BLOCK" \
-            | grep -Eo 'https://([A-Za-z0-9-]+\.)?(tiktok\.com|vm\.tiktok\.com)/[^[:space:]]+' \
-            | sed 's/[),.;]*$//' \
-            | sort -u > tiktok_urls.txt
-
-          if [ ! -s tiktok_urls.txt ]; then
-            echo "ERROR: No valid TikTok URLs found in commit message."
-            echo "Example format:"
-            echo '  tiktok-bulk: https://www.tiktok.com/@user/video/1 https://vm.tiktok.com/abc/'
-            exit 1
-          fi
-
-          echo "TikTok URLs found:"
-          cat tiktok_urls.txt
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install dependencies
         shell: bash
         run: |
-          set -euo pipefail
+          set -euxo pipefail
           sudo apt-get update
-          sudo apt-get install -y \
-            python3 \
-            python3-pip \
-            zip \
-            unzip \
-            ffmpeg \
-            ca-certificates
-
+          sudo apt-get install -y ffmpeg zip findutils
           python3 -m pip install --upgrade pip
-          python3 -m pip install --no-cache-dir yt-dlp
+          python3 -m pip install --no-cache-dir --upgrade yt-dlp "curl_cffi[requests]"
 
-      - name: Download TikTok videos with yt-dlp
+      - name: Extract URLs and download TikTok files
         shell: bash
         run: |
-          set -euo pipefail
+          set -u
 
-          mkdir -p tmp_downloads downloads
+          MSG="$(git log -1 --pretty=%B)"
+          echo "Commit message:"
+          echo "$MSG"
 
-          yt-dlp \
-            --ignore-errors \
-            --no-playlist \
-            --restrict-filenames \
-            --no-overwrites \
-            -a tiktok_urls.txt \
-            -o "tmp_downloads/%(uploader|unknown_uploader)s/%(title|video)s-%(id)s.%(ext)s"
-
-          if ! find tmp_downloads -type f | grep -q .; then
-            echo "ERROR: No files were downloaded."
+          if echo "$MSG" | grep -qP 'tiktok-zip:'; then
+            MODE="zip"
+            URL_LINE="$(echo "$MSG" | grep -oP 'tiktok-zip:\s*\K.*')"
+            echo "Detected tiktok-zip mode."
+          elif echo "$MSG" | grep -qP 'tiktok-download:'; then
+            MODE="normal"
+            URL_LINE="$(echo "$MSG" | grep -oP 'tiktok-download:\s*\K.*')"
+            echo "Detected tiktok-download mode."
+          else
+            echo "No supported command found in commit message."
             exit 1
           fi
 
-      - name: Process downloads and split files over 90MB
-        shell: bash
-        run: |
-          set -euo pipefail
+          mkdir -p downloads tmp_downloads
 
-          mkdir -p downloads
+          YTDLP_HAS_ERRORS=0
 
-          find tmp_downloads -type f | while IFS= read -r FILE; do
-            [ -f "$FILE" ] || continue
+          while IFS= read -r URL; do
+            [ -z "$URL" ] && continue
 
-            SIZE_BYTES="$(stat -c%s "$FILE")"
-            BASENAME="$(basename "$FILE")"
-            NAME_NO_EXT="${BASENAME%.*}"
+            echo "Downloading: $URL"
 
-            if [ "$SIZE_BYTES" -gt 94371840 ]; then
-              echo "File exceeds 90MB, creating split zip: $BASENAME"
-              zip -s 90m "downloads/${NAME_NO_EXT}.zip" -j "$FILE"
-            else
-              echo "Copying file under 90MB: $BASENAME"
-              cp -f "$FILE" "downloads/$BASENAME"
+            yt-dlp \
+              --ignore-errors \
+              --no-playlist \
+              --restrict-filenames \
+              --no-overwrites \
+              --retries 5 \
+              --fragment-retries 5 \
+              --sleep-requests 2 \
+              --sleep-interval 3 \
+              --max-sleep-interval 8 \
+              --download-archive downloaded_archive.txt \
+              --merge-output-format mp4 \
+              -o 'tmp_downloads/%(uploader|unknown_uploader)s/%(title|video)s-%(id)s.%(ext)s' \
+              "$URL"
+
+            STATUS=$?
+            if [ "$STATUS" -ne 0 ]; then
+              echo "Warning: yt-dlp failed for $URL with exit code $STATUS"
+              YTDLP_HAS_ERRORS=1
             fi
-          done
+          done <<< "$URL_LINE"
 
-          if ! find downloads -type f | grep -q .; then
-            echo "ERROR: No output files were produced in downloads/."
+          MEDIA_COUNT="$(find tmp_downloads -type f | wc -l)"
+          if [ "$MEDIA_COUNT" -eq 0 ]; then
+            echo "No files were downloaded."
             exit 1
           fi
 
-          echo "Final downloads directory:"
-          find downloads -maxdepth 2 -type f | sort
+          echo "Downloaded file count: $MEDIA_COUNT"
 
-      - name: Commit and push results
-        shell: bash
-        run: |
-          set -euo pipefail
+          if [ "$MODE" = "zip" ]; then
+            ARCHIVE_NAME="tiktok_bulk_$(date +%Y%m%d_%H%M%S)"
+            ARCHIVE_PATH="downloads/${ARCHIVE_NAME}.zip"
 
-          BRANCH="${GITHUB_REF#refs/heads/}"
+            echo "Creating archive: $ARCHIVE_PATH"
+            (
+              cd tmp_downloads
+              zip -r "../$ARCHIVE_PATH" .
+            )
 
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            SIZE=$(stat -c%s "$ARCHIVE_PATH")
+            LIMIT=$((90 * 1024 * 1024))
 
-          git add downloads/
+            if [ "$SIZE" -gt "$LIMIT" ]; then
+              echo "Archive exceeds 90MB, recreating as split archive..."
 
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-            exit 0
+              rm -f "$ARCHIVE_PATH"
+              (
+                cd tmp_downloads
+                zip -r -s 90m "../$ARCHIVE_PATH" .
+              )
+
+              echo "Split archive parts:"
+              ls -lh downloads/"${ARCHIVE_NAME}"*
+            else
+              echo "Archive is within 90MB."
+            fi
+          else
+            echo "Moving downloaded content into downloads/"
+            cp -R tmp_downloads/. downloads/
           fi
 
-          git commit -m "Add TikTok bulk downloads [skip ci]"
-          git push origin "HEAD:${BRANCH}"
+          rm -rf tmp_downloads
+
+          if [ "$YTDLP_HAS_ERRORS" -eq 1 ]; then
+            echo "Some downloads failed, but workflow will continue with successful files."
+          fi
+
+      - name: Split oversized non-zip files over 90MB
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          find downloads -type f ! -name '*.zip' ! -name '*.z[0-9
