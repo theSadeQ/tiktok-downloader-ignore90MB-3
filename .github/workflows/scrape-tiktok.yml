@@ -4,17 +4,17 @@ on:
   push:
     branches:
       - main
-      - master # Triggers on push to main/master
+      - master
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
     
-    # CRITICAL: Prevent infinite loop. If the commit was made by the bot, skip this run!
+    # CRITICAL: Prevent infinite loops by ignoring our bot's own commits
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     
     permissions:
-      contents: write # Needed so the bot can push the .txt file back
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -33,15 +33,16 @@ jobs:
           pip install playwright
           playwright install chromium
 
-      - name: Extract TikTok URL from commit message
+      - name: Extract Urlebird URL from commit message
         id: extract_url
         run: |
           COMMIT_MSG="${{ github.event.head_commit.message }}"
-          # Use grep to find a standard tiktok.com/@username URL in the commit body
-          URL=$(echo "$COMMIT_MSG" | grep -oP 'https://(?:www\.)?tiktok\.com/@[a-zA-Z0-9_.-]+' | head -n 1)
+          
+          # Match the localized Urlebird URL format: https://urlebird.com/tw/user/USERNAME/
+          URL=$(echo "$COMMIT_MSG" | grep -oP 'https://(?:www\.)?urlebird\.com/tw/user/[a-zA-Z0-9_.-]+/?' | head -n 1)
           
           if [ -z "$URL" ]; then
-            echo "No TikTok URL found in commit message. Skipping."
+            echo "No Urlebird URL found in commit message. Skipping."
           else
             echo "Found URL: $URL"
           fi
@@ -49,7 +50,6 @@ jobs:
           echo "url=$URL" >> $GITHUB_OUTPUT
 
       - name: Run Scraper
-        # Only run if the previous step successfully found a URL
         if: steps.extract_url.outputs.url != ''
         run: |
           python scripts/scrape_tiktok_urls.py "${{ steps.extract_url.outputs.url }}"
@@ -61,12 +61,10 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add downloads/
           
-          # Only attempt to commit if the scraper actually created/modified files
           if git diff --staged --quiet; then
             echo "No new URLs to commit."
           else
-            git commit -m "chore: update scraped URLs for ${{ steps.extract_url.outputs.url }} [skip ci]"
-            # Rebase in case another commit was pushed while the scraper was running
+            git commit -m "chore: update scraped URLs for Urlebird profile [skip ci]"
             git pull --rebase origin HEAD
             git push
           fi
