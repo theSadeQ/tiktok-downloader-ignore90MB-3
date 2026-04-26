@@ -1,137 +1,147 @@
-# File: scripts/scrape_tiktok_urls.py
-
-import asyncio
-import re
 import sys
+import re
+import asyncio
 from pathlib import Path
 from urllib.parse import urlparse, urlunparse
+from playwright.async_api import async_playwright, TimeoutError
+from playwright_stealth import stealth_async
 
-from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeoutError
-
-def normalize_profile_url(raw_url: str) -> tuple[str, str]:
-    """
-    Normalizes different TikTok URL formats into a standard profile URL.
-    Returns the normalized URL and the extracted username.
-    """
-    raw_url = raw_url.strip()
-    if not raw_url.startswith("http"):
-        raw_url = "https://" + raw_url
-        
-    parsed = urlparse(raw_url)
+def normalize_profile_url(url: str) -> tuple[str, str]:
+    """Ensures the URL is formatted correctly and extracts the username."""
+    if not url.startswith("http"):
+        url = "https://" + url
+    
+    parsed = urlparse(url)
     path_parts = [p for p in parsed.path.split('/') if p]
     
     username = ""
     for part in path_parts:
-        if part.startswith('@') or (len(path_parts) == 1 and not part.startswith('video')):
-            username = part if part.startswith('@') else f"@{part}"
+        if part.startswith('@'):
+            username = part[1:]
             break
-            
-    if not username:
-        raise ValueError(f"Could not extract username from URL: {raw_url}")
-
-    normalized_url = f"https://www.tiktok.com/{username}"
-    return normalized_url, username.replace('@', '')
+    
+    if not username and path_parts:
+        username = path_parts[0]
+        
+    normalized_url = f"https://www.tiktok.com/@{username}"
+    return normalized_url, username
 
 def clean_video_url(url: str) -> str:
-    """Removes query parameters from the video URL for cleaner output."""
+    """Removes query parameters from the video URL."""
     parsed = urlparse(url)
-    clean_url = urlunparse((parsed.scheme, parsed.netloc, parsed.path, '', '', ''))
-    return clean_url
+    clean = urlunparse((parsed.scheme, parsed.netloc, parsed.path, '', '', ''))
+    return clean
 
-async def scrape_profile(raw_url: str):
-    """
-    Scrapes a TikTok profile for video URLs and captures debug artifacts.
-    """
-    try:
-        target_url, username = normalize_profile_url(raw_url)
-    except ValueError as e:
-        print(f"Error: {e}")
+async def main():
+    if len(sys.argv) < 2:
+        print("Usage: python scrape_tiktok_urls.py <profile_url>")
         sys.exit(1)
 
-    print(f"Normalized Target URL: {target_url}")
-    print(f"Target Username: {username}")
+    raw_url = sys.argv[1]
+    profile_url, username = normalize_profile_url(raw_url)
+    print(f"Targeting profile: {profile_url} (Username: {username})")
 
+    # Setup output directory
     downloads_dir = Path("downloads")
     downloads_dir.mkdir(exist_ok=True)
-    
     output_file = downloads_dir / f"tiktok_{username}_urls.txt"
     
-    # Debug artifact paths
-    debug_initial_png = downloads_dir / f"debug_1_initial_{username}.png"
-    debug_scrolled_png = downloads_dir / f"debug_2_scrolled_{username}.png"
-    debug_html_source = downloads_dir / f"debug_3_source_{username}.html"
+    # Debug file paths
+    debug_initial = downloads_dir / f"debug_1_initial_{username}.png"
+    debug_scrolled = downloads_dir / f"debug_2_scrolled_{username}.png"
+    debug_source = downloads_dir / f"debug_3_source_{username}.html"
 
     async with async_playwright() as p:
-        print("Launching headless Chromium browser...")
-        # We launch headless, but set a standard viewport (window size) 
-        # so our screenshots look like a real desktop screen.
-        browser = await p.chromium.launch(headless=True)
-        page = await browser.new_page(viewport={"width": 1280, "height": 720})
+        # Launch Chromium with args to help prevent detection
+        browser = await p.chromium.launch(
+            headless=True,
+            args=['--no-sandbox', '--disable-setuid-sandbox']
+        )
+        
+        # Set a standard desktop viewport
+        context = await browser.new_context(
+            viewport={"width": 1920, "height": 1080}
+        )
+        page = await context.new_page()
+        
+        # Apply stealth configuration to the page BEFORE navigating
+        await stealth_async(page)
 
         try:
-            print("Navigating to profile page...")
-            await page.goto(target_url, wait_until="domcontentloaded", timeout=30000)
+            print("Navigating to profile...")
+            await page.goto(profile_url, wait_until="domcontentloaded", timeout=60000)
             
-            # --- DEBUG SYSTEM: STAGE 1 ---
-            print(f"Taking initial load screenshot -> {debug_initial_png.name}")
-            await page.screenshot(path=debug_initial_png)
-
-            print("Scrolling to load videos (5 iterations)...")
-            for i in range(5):
-                print(f"  Scroll {i+1}/5...")
-                await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-                await asyncio.sleep(2)  # Wait for dynamic content to load
-
-            # --- DEBUG SYSTEM: STAGE 2 & 3 ---
-            print(f"Taking post-scroll screenshot -> {debug_scrolled_png.name}")
-            await page.screenshot(path=debug_scrolled_png)
+            # Wait to clear potential Cloudflare/Turnstile verification
+            print("Waiting 5 seconds to clear potential bot checks...")
+            await asyncio.sleep(5)
             
-            print(f"Saving raw HTML source -> {debug_html_source.name}")
+            print("Capturing initial debug screenshot...")
+            await page.screenshot(path=str(debug_initial), full_page=True)
+
+            # Mimic human smooth scrolling to trigger video loading
+            print("Scrolling down smoothly to trigger lazy-loaded videos...")
+            await page.evaluate("""
+                async () => {
+                    await new Promise((resolve) => {
+                        let totalHeight = 0;
+                        const distance = 300;
+                        const timer = setInterval(() => {
+                            const scrollHeight = document.body.scrollHeight;
+                            window.scrollBy(0, distance);
+                            totalHeight += distance;
+                            
+                            // Stop after scrolling down significantly or hitting bottom
+                            if (totalHeight >= scrollHeight || totalHeight > 15000) {
+                                clearInterval(timer);
+                                resolve();
+                            }
+                        }, 200);
+                    });
+                }
+            """)
+
+            # Give DOM a final moment to render after scrolling
+            print("Waiting for final DOM elements to render...")
+            await asyncio.sleep(2)
+
+            print("Capturing post-scroll debug data...")
+            await page.screenshot(path=str(debug_scrolled), full_page=True)
             html_content = await page.content()
-            with open(debug_html_source, "w", encoding="utf-8") as f:
+            with open(debug_source, "w", encoding="utf-8") as f:
                 f.write(html_content)
 
-            print("Extracting links from the DOM...")
+            print("Extracting links...")
             links = await page.locator("a").all()
             
             video_urls = set()
-            # TikTok video URL pattern: https://www.tiktok.com/@username/video/1234567890
-            pattern = re.compile(r"^https?://(?:www\.)?tiktok\.com/@[^/]+/video/\d+")
-
+            video_pattern = re.compile(r"^https?://(?:www\.)?tiktok\.com/@[^/]+/video/\d+")
+            
             for link in links:
                 href = await link.get_attribute("href")
-                if href and pattern.match(href):
-                    video_urls.add(clean_video_url(href))
-
+                if href and video_pattern.match(href):
+                    clean_url = clean_video_url(href)
+                    video_urls.add(clean_url)
+            
             sorted_urls = sorted(list(video_urls))
-
-            print(f"Found {len(sorted_urls)} unique video URLs.")
             
-            # Always write to file (creates an empty file if 0 found)
-            with open(output_file, "w", encoding="utf-8") as f:
+            with open(output_file, "w") as f:
                 for url in sorted_urls:
-                    f.write(f"{url}\n")
+                    f.write(url + "\n")
             
-            print(f"Successfully saved to {output_file}")
-
+            print(f"SUCCESS: Found {len(sorted_urls)} video URLs.")
+            print(f"Saved to {output_file}")
+            
             if len(sorted_urls) == 0:
-                print("\n--- ZERO URLS FOUND ---")
-                print("Please check the 'downloads/' folder in your repository for the debug files:")
-                print(f"1. {debug_initial_png.name} (Did it hit a CAPTCHA immediately?)")
-                print(f"2. {debug_scrolled_png.name} (Did the page load blank?)")
-                print(f"3. {debug_html_source.name} (Check for 'Access Denied' or Cloudflare/bot-protection text)")
-
-        except PlaywrightTimeoutError:
-            print("Error: Timed out while waiting for the page to load.")
+                print("\nWARNING: ZERO URLS FOUND.")
+                print("Even with stealth, TikTok might have detected the datacenter IP.")
+                print(f"Please check the debug images in the downloads folder to see what the bot actually saw.")
+            
+        except TimeoutError:
+            print("Error: Page load timed out.")
         except Exception as e:
-            print(f"An unexpected error occurred: {e}")
+            print(f"An error occurred: {e}")
         finally:
-            print("Closing browser...")
             await browser.close()
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: python scripts/scrape_tiktok_urls.py <tiktok_profile_url>")
-        sys.exit(1)
-    
-    asyncio.run(scrape_profile(sys.argv[1]))
+    asyncio.run(main())
