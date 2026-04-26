@@ -1,5 +1,5 @@
 2
-tiktok-bulk:
-https://url1
-https://url2
-https://url3
+tiktok-download:
+https://www.tiktok.com/@user/video/123
+https://www.tiktok.com/@user/video/456
+
