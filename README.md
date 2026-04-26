@@ -1,5 +1,5 @@
-Scrape https://www.tiktok.com/@jaedengomezz
-Add user https://www.tiktok.com/@jaedengomezz
+Scrape new videos from https://urlebird.com/tw/user/jaedengomezz/
+
 
 # TikTok Commit Scraper 5
 
