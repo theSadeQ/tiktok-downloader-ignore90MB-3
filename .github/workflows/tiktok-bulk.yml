@@ -1,0 +1,240 @@
+name: TikTok Bulk Downloader
+
+on:
+  push:
+    branches:
+      - "**"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tiktok-bulk-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  download_tiktok_bulk:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Read latest commit message
+        id: commit_msg
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo "message<<EOF"
+            git log -1 --pretty=%B
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Stop if commit does not request TikTok bulk download
+        shell: bash
+        run: |
+          set -euo pipefail
+          MSG="${{ steps.commit_msg.outputs.message }}"
+          if ! printf '%s\n' "$MSG" | grep -qE '(^|[[:space:]])tiktok-bulk:[[:space:]]+'; then
+            echo "No 'tiktok-bulk:' command found in commit message. Exiting successfully."
+            exit 0
+          fi
+
+      - name: Extract and validate Gist URL from commit message
+        id: extract_gist
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          MSG="${{ steps.commit_msg.outputs.message }}"
+
+          GIST_URL="$(printf '%s\n' "$MSG" | perl -nle 'if (/tiktok-bulk:\s*(https:\/\/gist\.github\.com\/[A-Za-z0-9_.-]+\/[A-Fa-f0-9]+)/) { print $1; exit }')"
+
+          if [ -z "${GIST_URL:-}" ]; then
+            echo "ERROR: Could not extract a valid GitHub Gist URL from commit message."
+            echo "Expected format:"
+            echo "  tiktok-bulk: https://gist.github.com/USERNAME/GIST_ID"
+            exit 1
+          fi
+
+          if ! printf '%s' "$GIST_URL" | grep -Eq '^https://gist\.github\.com/[A-Za-z0-9_.-]+/[A-Fa-f0-9]+/?$'; then
+            echo "ERROR: Invalid Gist URL format: $GIST_URL"
+            exit 1
+          fi
+
+          GIST_ID="$(printf '%s' "$GIST_URL" | awk -F/ '{print $NF}')"
+          if [ -z "${GIST_ID:-}" ]; then
+            echo "ERROR: Failed to extract Gist ID."
+            exit 1
+          fi
+
+          echo "gist_url=$GIST_URL" >> "$GITHUB_OUTPUT"
+          echo "gist_id=$GIST_ID" >> "$GITHUB_OUTPUT"
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y \
+            python3 \
+            python3-pip \
+            jq \
+            zip \
+            unzip \
+            ffmpeg \
+            ca-certificates
+
+          python3 -m pip install --upgrade pip
+          python3 -m pip install --no-cache-dir yt-dlp
+
+      - name: Fetch Gist metadata and extract raw file URLs
+        id: fetch_gist
+        shell: bash
+        env:
+          GIST_ID: ${{ steps.extract_gist.outputs.gist_id }}
+        run: |
+          set -euo pipefail
+
+          API_URL="https://api.github.com/gists/${GIST_ID}"
+          curl -fsSL \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "$API_URL" \
+            -o gist.json
+
+          if ! jq -e '.files and (.files | length > 0)' gist.json >/dev/null; then
+            echo "ERROR: Gist has no files or could not be parsed."
+            exit 1
+          fi
+
+          jq -r '.files[]?.raw_url // empty' gist.json > raw_urls.txt
+
+          if [ ! -s raw_urls.txt ]; then
+            echo "ERROR: No raw file URLs found in Gist."
+            exit 1
+          fi
+
+          echo "Found raw Gist file URLs:"
+          cat raw_urls.txt
+
+      - name: Download Gist raw content
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          : > gist_content.txt
+
+          while IFS= read -r RAW_URL; do
+            [ -n "$RAW_URL" ] || continue
+
+            # Extra safety: only allow raw.githubusercontent.com
+            if ! printf '%s' "$RAW_URL" | grep -Eq '^https://gist\.githubusercontent\.com/'; then
+              echo "ERROR: Refusing non-gist raw URL: $RAW_URL"
+              exit 1
+            fi
+
+            echo "" >> gist_content.txt
+            echo "# SOURCE: $RAW_URL" >> gist_content.txt
+            curl -fsSL "$RAW_URL" >> gist_content.txt
+            echo "" >> gist_content.txt
+          done < raw_urls.txt
+
+          if [ ! -s gist_content.txt ]; then
+            echo "ERROR: Gist content is empty."
+            exit 1
+          fi
+
+      - name: Extract TikTok URLs from Gist content
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          grep -Eo 'https://([A-Za-z0-9-]+\.)?(tiktok\.com|vm\.tiktok\.com)/[^[:space:]]+' gist_content.txt \
+            | sed 's/[),.;]*$//' \
+            | sort -u > tiktok_urls.txt
+
+          if [ ! -s tiktok_urls.txt ]; then
+            echo "ERROR: No TikTok URLs found in Gist content."
+            exit 1
+          fi
+
+          echo "TikTok URLs found:"
+          cat tiktok_urls.txt
+
+      - name: Download TikTok videos with yt-dlp
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p tmp_downloads downloads
+
+          # Use a stable naming pattern.
+          # --restrict-filenames avoids unsafe characters in filenames.
+          # --no-playlist ensures each URL is treated safely as a single target unless yt-dlp resolves otherwise.
+          yt-dlp \
+            --ignore-errors \
+            --no-playlist \
+            --restrict-filenames \
+            --no-overwrites \
+            -a tiktok_urls.txt \
+            -o "tmp_downloads/%(uploader|unknown_uploader)s/%(title|video)s-%(id)s.%(ext)s"
+
+          if ! find tmp_downloads -type f | grep -q .; then
+            echo "ERROR: No files were downloaded."
+            exit 1
+          fi
+
+      - name: Process downloads and split files over 90MB
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p downloads
+
+          find tmp_downloads -type f | while IFS= read -r FILE; do
+            [ -f "$FILE" ] || continue
+
+            SIZE_BYTES="$(stat -c%s "$FILE")"
+            BASENAME="$(basename "$FILE")"
+            NAME_NO_EXT="${BASENAME%.*}"
+
+            if [ "$SIZE_BYTES" -gt 94371840 ]; then
+              echo "File exceeds 90MB, creating split zip: $BASENAME"
+              zip -s 90m "downloads/${NAME_NO_EXT}.zip" -j "$FILE"
+            else
+              echo "Copying file under 90MB: $BASENAME"
+              cp -f "$FILE" "downloads/$BASENAME"
+            fi
+          done
+
+          if ! find downloads -type f | grep -q .; then
+            echo "ERROR: No output files were produced in downloads/."
+            exit 1
+          fi
+
+          echo "Final downloads directory:"
+          find downloads -maxdepth 2 -type f | sort
+
+      - name: Commit and push results
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          BRANCH="${GITHUB_REF#refs/heads/}"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add downloads/
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Add TikTok bulk downloads [skip ci]"
+          git push origin "HEAD:${BRANCH}"
