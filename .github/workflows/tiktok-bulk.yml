@@ -5,8 +5,15 @@ on:
     branches:
       - "**"
 
+concurrency:
+  group: tiktok-download-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   tiktok-download:
+    # Do not run again on the bot commit created by this workflow.
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+
     runs-on: ubuntu-latest
 
     permissions:
@@ -17,18 +24,26 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
 
       - name: Install dependencies
-        shell: bash
         run: |
+          set -euo pipefail
+
           sudo apt-get update
-          sudo apt-get install -y ffmpeg zip python3
+          sudo apt-get install -y ffmpeg zip python3-pip
+
           python3 -m pip install --upgrade pip
-          python3 -m pip install --no-cache-dir --upgrade yt-dlp "curl_cffi[requests]"
+          python3 -m pip install --upgrade yt-dlp curl_cffi
+
+          yt-dlp --version
 
       - name: Extract URLs and download TikTok files
         shell: bash
+        env:
+          # Optional:
+          # If TikTok blocks public downloads, add this repo secret:
+          # TIKTOK_COOKIES_B64 = base64 encoded cookies.txt
+          TIKTOK_COOKIES_B64: ${{ secrets.TIKTOK_COOKIES_B64 }}
         run: |
           set -u
           set -o pipefail
@@ -36,49 +51,236 @@ jobs:
           mkdir -p downloads tmp_downloads
           touch downloaded_archive.txt
 
-          echo "Reading commit message and extracting TikTok URLs..."
+          MSG_FILE="$(mktemp)"
+          git log -1 --pretty=%B > "$MSG_FILE"
 
-          python3 <<'PY'
-          import re
-          import subprocess
-          import sys
-          from pathlib import Path
+          echo "===== Commit message ====="
+          cat "$MSG_FILE"
+          echo "=========================="
 
-          msg = subprocess.check_output(
-              ["git", "log", "-1", "--pretty=%B"],
-              text=True,
-              errors="replace"
-          )
+          # Detect the first supported command.
+          #
+          # Supported commands:
+          #   tiktok-download:
+          #   tiktok-zip:
+          #   download:
+          #   download-zip:
+          #
+          # Why this parser exists:
+          # The old parser only captured URLs on the same line as the command.
+          # This one captures URLs both on the command line and on following lines.
+          COMMAND="$(
+            grep -Eim1 '^[[:space:]]*(tiktok-zip|download-zip|tiktok-download|download):' "$MSG_FILE" \
+              | sed -E 's/^[[:space:]]*([^:]+):.*/\1/I' \
+              | tr '[:upper:]' '[:lower:]' || true
+          )"
 
-          print("Commit message:")
-          print(msg)
+          if [ -z "$COMMAND" ]; then
+            echo "❌ No supported download command found."
+            echo ""
+            echo "Use one of:"
+            echo "  tiktok-download:"
+            echo "  tiktok-zip:"
+            echo "  download:"
+            echo "  download-zip:"
+            exit 1
+          fi
 
-          commands = [
-              ("zip", r"(?is)(?:^|\n)\s*tiktok-zip\s*:\s*(.*)"),
-              ("normal", r"(?is)(?:^|\n)\s*tiktok-download\s*:\s*(.*)"),
-          ]
+          case "$COMMAND" in
+            tiktok-zip|download-zip)
+              MODE="zip"
+              ;;
+            tiktok-download|download)
+              MODE="normal"
+              ;;
+            *)
+              echo "❌ Unsupported command: $COMMAND"
+              exit 1
+              ;;
+          esac
 
-          mode = None
-          block = ""
+          echo "Detected command: $COMMAND"
+          echo "Download mode: $MODE"
 
-          for candidate_mode, pattern in commands:
-              match = re.search(pattern, msg)
-              if match:
-                  mode = candidate_mode
-                  block = match.group(1)
-                  break
+          # Extract every URL after the command line.
+          #
+          # This supports both:
+          #
+          #   tiktok-download: https://example.com/1 https://example.com/2
+          #
+          # and:
+          #
+          #   tiktok-download:
+          #   https://example.com/1
+          #   https://example.com/2
+          URLS="$(
+            awk '
+              BEGIN { capture = 0 }
 
-          if mode is None:
-              print("No tiktok-download: or tiktok-zip: command found. Nothing to do.")
-              Path("NO_COMMAND").write_text("1")
-              sys.exit(0)
+              /^[[:space:]]*(tiktok-zip|download-zip|tiktok-download|download):[[:space:]]*/ && capture == 0 {
+                capture = 1
+                line = $0
+                sub(/^[[:space:]]*(tiktok-zip|download-zip|tiktok-download|download):[[:space:]]*/, "", line)
+                print line
+                next
+              }
 
-          urls = re.findall(r"https?://[^\s<>'\"]+", block)
+              capture == 1 {
+                print $0
+              }
+            ' "$MSG_FILE" \
+              | grep -Eo 'https?://[^[:space:]<>"]+' \
+              | sed 's/[),.;]*$//' \
+              | sort -u || true
+          )"
 
-          cleaned_urls = []
-          for url in urls:
-              url = url.rstrip(".,);]")
-              if "tiktok.com" in url or "vm.tiktok.com" in url or "vt.tiktok.com" in url:
-                  cleaned_urls.append(url)
+          if [ -z "$URLS" ]; then
+            echo "❌ No URLs found after '$COMMAND:'."
+            echo ""
+            echo "Correct example:"
+            echo "tiktok-download:"
+            echo "https://www.tiktok.com/@user/video/123"
+            echo "https://www.tiktok.com/@user/video/456"
+            exit 1
+          fi
 
-          if not cleaned_urls
+          echo "===== URLs to download ====="
+          echo "$URLS"
+          echo "============================"
+
+          # Optional cookies support.
+          COOKIES_ARGS=()
+          if [ -n "${TIKTOK_COOKIES_B64:-}" ]; then
+            echo "Using TikTok cookies from TIKTOK_COOKIES_B64 secret."
+            echo "$TIKTOK_COOKIES_B64" | base64 -d > cookies.txt
+            chmod 600 cookies.txt
+            COOKIES_ARGS=(--cookies cookies.txt)
+          else
+            echo "No TikTok cookies secret provided. Trying public download."
+          fi
+
+          count_files() {
+            find tmp_downloads -type f | wc -l
+          }
+
+          YTDLP_HAS_ERRORS=0
+          SUCCESSFUL_URLS=0
+
+          while IFS= read -r URL; do
+            [ -z "$URL" ] && continue
+
+            echo ""
+            echo "⬇️ Downloading:"
+            echo "$URL"
+
+            BEFORE_COUNT="$(count_files)"
+
+            # We intentionally do not let one failed URL stop the whole workflow.
+            #
+            # Important choices:
+            # --download-archive:
+            #   Prevents re-downloading already downloaded videos.
+            #
+            # --ignore-errors and --no-abort-on-error:
+            #   Useful for playlists/profiles where some entries may fail.
+            #
+            # --impersonate chrome:
+            #   Uses curl_cffi browser impersonation when available, which can help
+            #   with TikTok request checks.
+            #
+            # Output path:
+            #   Keeps uploader folders, which makes bulk downloads easier to browse.
+            yt-dlp \
+              --ignore-errors \
+              --no-abort-on-error \
+              --no-mtime \
+              --download-archive downloaded_archive.txt \
+              --format "bv*+ba/b" \
+              --merge-output-format mp4 \
+              --impersonate chrome \
+              "${COOKIES_ARGS[@]}" \
+              --paths "tmp_downloads" \
+              -o "%(uploader|unknown_uploader)s/%(upload_date>%Y-%m-%d|unknown_date)s_%(title).80B_%(id)s.%(ext)s" \
+              "$URL"
+
+            EXIT_CODE=$?
+            AFTER_COUNT="$(count_files)"
+
+            if [ "$EXIT_CODE" -ne 0 ]; then
+              echo "⚠️ yt-dlp returned exit code $EXIT_CODE for:"
+              echo "$URL"
+              YTDLP_HAS_ERRORS=1
+            fi
+
+            if [ "$AFTER_COUNT" -gt "$BEFORE_COUNT" ]; then
+              echo "✅ New file downloaded for this URL."
+              SUCCESSFUL_URLS=$((SUCCESSFUL_URLS + 1))
+            else
+              echo "⚠️ No new file appeared for this URL."
+              echo "This may mean it failed, was already in downloaded_archive.txt, or TikTok blocked it."
+            fi
+          done <<< "$URLS"
+
+          TOTAL_FILES="$(count_files)"
+          echo ""
+          echo "Total files currently in tmp_downloads: $TOTAL_FILES"
+
+          if [ "$TOTAL_FILES" -eq 0 ]; then
+            if [ "$YTDLP_HAS_ERRORS" -eq 1 ]; then
+              echo "❌ No files were downloaded and at least one yt-dlp error occurred."
+              exit 1
+            fi
+
+            echo "ℹ️ No new files downloaded. They may already be archived."
+            exit 0
+          fi
+
+          if [ "$MODE" = "zip" ]; then
+            echo "📦 Creating split ZIP archive..."
+
+            ARCHIVE_BASE="tiktok_bulk_$(date +%Y%m%d_%H%M%S)"
+
+            # Why cd into tmp_downloads?
+            # It puts the contents inside the archive cleanly while preserving
+            # uploader folders created by yt-dlp.
+            (
+              cd tmp_downloads
+              zip -r -s 90m "../downloads/${ARCHIVE_BASE}.zip" .
+            )
+
+            echo "Created archive parts:"
+            ls -lh downloads/${ARCHIVE_BASE}* || true
+
+          else
+            echo "📁 Copying downloaded files to downloads/..."
+
+            # cp -a preserves directory structure, timestamps, and file attributes.
+            cp -a tmp_downloads/. downloads/
+          fi
+
+          rm -rf tmp_downloads
+
+          if [ "$YTDLP_HAS_ERRORS" -eq 1 ]; then
+            echo "⚠️ Some URLs had errors, but at least one file was downloaded."
+            echo "Continuing so successful downloads can be committed."
+          fi
+
+      - name: Commit & Push changes
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          BRANCH="${GITHUB_REF_NAME}"
+
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git add downloads/ downloaded_archive.txt
+
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+            exit 0
+          fi
+
+          git commit -m "Add downloaded TikTok files [skip ci]"
+          git push origin HEAD:"$BRANCH"
