@@ -2,8 +2,7 @@ name: Scrape TikTok URLs
 
 on:
   push:
-    branches:
-      - "**"
+    branches: [ "**" ]
 
 permissions:
   contents: write
@@ -11,49 +10,69 @@ permissions:
 jobs:
   scrape:
     runs-on: ubuntu-latest
+    # WHY: This is our circuit breaker. If the commit message contains [skip ci], 
+    # the Action will skip this entire job. This prevents the bot from triggering 
+    # itself over and over when it commits the scraped URLs.
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          # WHY: fetch-depth: 0 pulls the entire git history, not just the latest commit. 
+          # This ensures git commands like `git log` work properly when we extract the URL.
           fetch-depth: 0
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: '3.12'
 
-      - name: Install Dependencies
+      - name: Install dependencies
+        # WHY: We only need standard Playwright now because we are scraping a mirror 
+        # site (Urlebird) that doesn't have the aggressive anti-bot walls of TikTok.
         run: |
           python -m pip install --upgrade pip
           pip install playwright
-          playwright install chromium --with-deps
+          playwright install chromium
 
-      - name: Extract URL from commit message
-        id: extract_url
+      - name: Extract URL and Run Scraper
         run: |
+          # 1. Grab the latest commit message
           COMMIT_MSG=$(git log -1 --pretty=%B)
-          URL=$(echo "$COMMIT_MSG" | grep -oE 'https?://[^ ]+' | head -n 1 | sed 's/[.,;:!?]$//')
-          echo "url=$URL" >> $GITHUB_OUTPUT
+          
+          # 2. Extract the first valid TikTok URL using a Regular Expression (regex)
+          URL=$(echo "$COMMIT_MSG" | grep -Eo 'https?://(www\.)?tiktok\.com/@[a-zA-Z0-9_.-]+' | head -n 1)
+          
+          if [ -n "$URL" ]; then
+            echo "Found TikTok URL: $URL"
+            # 3. Pass the URL as an argument to our Python script
+            python scripts/scrape_tiktok_urls.py "$URL"
+          else
+            echo "No TikTok URL found in commit message. Skipping scraper."
+          fi
 
-      - name: Run Scraper
-        if: steps.extract_url.outputs.url != ''
+      - name: Commit and Push results
         run: |
-          python scripts/scrape_tiktok_urls.py "${{ steps.extract_url.outputs.url }}"
-
-      - name: Commit and Push Results
-        if: steps.extract_url.outputs.url != ''
-        run: |
+          # WHY: We must configure a git identity so GitHub knows who is making the commit.
+          # We use the standard github-actions bot identity.
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
+          # Stage the text files and any debug screenshots saved in the downloads folder
           git add downloads/
           
-          if git diff --staged --quiet; then
-            echo "No new URLs or changes to save."
-          else
-            git commit -m "Save TikTok scraped URLs and debug data [skip ci]"
+          # WHY: git diff --staged --quiet checks if there are actually changes to commit.
+          # If the bot didn't find any new videos, this prevents it from throwing an error
+          # for trying to commit an empty change.
+          if ! git diff --staged --quiet; then
+            # The [skip ci] tag here is absolutely mandatory to stop the infinite loop!
+            git commit -m "chore: add scraped TikTok URLs from mirror [skip ci]"
+            
+            # WHY: A rebase pull ensures we smoothly apply our new commit on top of 
+            # any other changes that might have happened in the repository just now.
             git pull --rebase origin ${{ github.ref_name }}
-            git push origin ${{ github.ref_name }}
+            git push
+          else
+            echo "No new URLs or files to commit."
           fi
