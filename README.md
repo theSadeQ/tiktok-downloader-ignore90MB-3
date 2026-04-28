@@ -1,4 +1,4 @@
-download:
+tiktok-download:
 https://www.tiktok.com/@notskillsawww/video/7536053053741419790
 https://www.tiktok.com/@notskillsawww/video/7193833776391277866
 https://www.tiktok.com/@notskillsawww/video/7186142128861351214
