@@ -1,5 +1,5 @@
 tiktok-download:
-[https://www.tiktok.com/@notskillsawww/video/7536053053741419790
+https://www.tiktok.com/@notskillsawww/video/7536053053741419790
 https://www.tiktok.com/@notskillsawww/video/7193833776391277866
 https://www.tiktok.com/@notskillsawww/video/7186142128861351214
 https://www.tiktok.com/@notskillsawww/video/7552302354939252023
@@ -337,4 +337,3 @@ https://www.tiktok.com/@skilahdjs/video/7535539444905037069
 https://www.tiktok.com/@skilahdjs/video/7597225252724198670
 https://www.tiktok.com/@skilahdjs/video/7629287551114808590
 https://www.tiktok.com/@skilahdjs/video/7587580866889616695
-)
