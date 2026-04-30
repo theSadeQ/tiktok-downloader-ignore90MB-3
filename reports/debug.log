@@ -3697,3 +3697,70 @@ WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate 
 [2026-04-30T13:17:15Z] Copying downloaded files to downloads
 [2026-04-30T13:17:16Z] Preparing commit for: batch-55-after-275-successful-downloads
 [2026-04-30T13:17:16Z] Removing video files larger than 90MB from: downloads
+[main e3ec371] Add downloaded TikTok files batch-55-after-275-successful-downloads [skip ci]
+ 7 files changed, 72 insertions(+)
+ create mode 100644 "downloads/ellasandramuse/@ellasandramuse_2025-07-18_real @Rene\303\251 Noe _7528565456597159199.mp4"
+ create mode 100644 "downloads/ellasandramuse/@ellasandramuse_2025-07-20_it\342\200\231s in our blood @rachelmuse @sofia muse _7529207142230789406.mp4"
+ create mode 100644 "downloads/ellasandramuse/@ellasandramuse_2025-07-29_guys pls help you know I\342\200\231m indecisive and they are all so cute!!!! al..._7532598275560492318.mp4"
+ create mode 100644 "downloads/ellasandramuse/@ellasandramuse_2025-08-01_these products have changed my hair, once you try them you can\342\200\231t go b..._7533702478186024222.mp4"
+ create mode 100644 "downloads/ellasandramuse/@ellasandramuse_2025-08-02_grateful for new experiences \360\237\214\212\360\237\220\254\360\237\222\231 @Rene\303\251 Noe _7534063897855364382.mp4"
+To https://github.com/theSadeQ/tiktok-downloader-ignore90MB-3
+   97f2ffb..e3ec371  HEAD -> main
+[2026-04-30T13:17:23Z] Batch committed and pushed successfully: batch-55-after-275-successful-downloads
+[2026-04-30T13:17:23Z] Processing URL #277:
+[2026-04-30T13:17:23Z] https://www.tiktok.com/@ellasandramuse/video/7535206417695853855
+[TikTok] Extracting URL: https://www.tiktok.com/@ellasandramuse/video/7535206417695853855
+[TikTok] 7535206417695853855: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7535206417695853855: Downloading 1 format(s): bytevc1_1080p_1848447-1
+[download] Destination: tmp_downloads/ellasandramuse/@ellasandramuse_2025-08-05_the vids to this sound are 😗🤌  #curlyhair _7535206417695853855.mp4
+[download]   0.0% of    2.93MiB at  Unknown B/s ETA Unknown[download]   0.1% of    2.93MiB at  Unknown B/s ETA Unknown[download]   0.2% of    2.93MiB at    5.99MiB/s ETA 00:00  [download]   0.5% of    2.93MiB at   10.50MiB/s ETA 00:00[download]   1.0% of    2.93MiB at    7.24MiB/s ETA 00:00[download]   2.1% of    2.93MiB at    2.44MiB/s ETA 00:01[download]   4.2% of    2.93MiB at    2.57MiB/s ETA 00:01[download]   8.5% of    2.93MiB at    3.39MiB/s ETA 00:00[download]  17.0% of    2.93MiB at    4.86MiB/s ETA 00:00[download]  34.1% of    2.93MiB at    7.60MiB/s ETA 00:00[download]  68.2% of    2.93MiB at   12.07MiB/s ETA 00:00[download] 100.0% of    2.93MiB at   15.89MiB/s ETA 00:00[download] 100% of    2.93MiB in 00:00:00 at 7.08MiB/s   
+[2026-04-30T13:17:25Z] New file downloaded for this URL.
+[2026-04-30T13:17:25Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T13:17:25Z] Copying downloaded files to downloads
+[2026-04-30T13:17:26Z] Processing URL #278:
+[2026-04-30T13:17:26Z] https://www.tiktok.com/@ellasandramuse/video/7537435484599946527
+[TikTok] Extracting URL: https://www.tiktok.com/@ellasandramuse/video/7537435484599946527
+[TikTok] 7537435484599946527: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7537435484599946527: Downloading 1 format(s): bytevc1_1080p_2150344-1
+[download] Destination: tmp_downloads/ellasandramuse/@ellasandramuse_2025-08-11_we r one @Reneé Noe _7537435484599946527.mp4
+[download]   0.0% of    4.91MiB at  Unknown B/s ETA Unknown[download]   0.1% of    4.91MiB at  Unknown B/s ETA Unknown[download]   0.1% of    4.91MiB at    6.22MiB/s ETA 00:00  [download]   0.3% of    4.91MiB at   10.66MiB/s ETA 00:00[download]   0.6% of    4.91MiB at   18.32MiB/s ETA 00:00[download]   1.3% of    4.91MiB at    2.45MiB/s ETA 00:01[download]   2.5% of    4.91MiB at    2.45MiB/s ETA 00:01[download]   5.1% of    4.91MiB at    3.25MiB/s ETA 00:01[download]  10.2% of    4.91MiB at    4.88MiB/s ETA 00:00[download]  20.3% of    4.91MiB at    7.38MiB/s ETA 00:00[download]  40.7% of    4.91MiB at   11.70MiB/s ETA 00:00[download]  81.4% of    4.91MiB at   18.08MiB/s ETA 00:00[download] 100.0% of    4.91MiB at   20.77MiB/s ETA 00:00[download] 100% of    4.91MiB in 00:00:00 at 8.07MiB/s   
+[2026-04-30T13:17:28Z] New file downloaded for this URL.
+[2026-04-30T13:17:28Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T13:17:28Z] Copying downloaded files to downloads
+[2026-04-30T13:17:29Z] Processing URL #279:
+[2026-04-30T13:17:29Z] https://www.tiktok.com/@ellasandramuse/video/7538145708847795487
+[TikTok] Extracting URL: https://www.tiktok.com/@ellasandramuse/video/7538145708847795487
+[TikTok] 7538145708847795487: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7538145708847795487: Downloading 1 format(s): bytevc1_1080p_1174548-1
+[download] Destination: tmp_downloads/ellasandramuse/@ellasandramuse_2025-08-13_needed a little reset 🎧☁️🤍 _7538145708847795487.mp4
+[download]   0.0% of    3.84MiB at  Unknown B/s ETA Unknown[download]   0.1% of    3.84MiB at  Unknown B/s ETA Unknown[download]   0.2% of    3.84MiB at    6.47MiB/s ETA 00:00  [download]   0.4% of    3.84MiB at   11.13MiB/s ETA 00:00[download]   0.8% of    3.84MiB at    7.58MiB/s ETA 00:00[download]   1.6% of    3.84MiB at    3.61MiB/s ETA 00:01[download]   3.2% of    3.84MiB at    3.82MiB/s ETA 00:00[download]   6.5% of    3.84MiB at    5.08MiB/s ETA 00:00[download]  13.0% of    3.84MiB at    6.99MiB/s ETA 00:00[download]  26.0% of    3.84MiB at    9.73MiB/s ETA 00:00[download]  52.0% of    3.84MiB at   14.45MiB/s ETA 00:00[download] 100.0% of    3.84MiB at   22.54MiB/s ETA 00:00[download] 100% of    3.84MiB in 00:00:00 at 8.72MiB/s   
+[2026-04-30T13:17:31Z] New file downloaded for this URL.
+[2026-04-30T13:17:31Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T13:17:31Z] Copying downloaded files to downloads
+[2026-04-30T13:17:33Z] Processing URL #280:
+[2026-04-30T13:17:33Z] https://www.tiktok.com/@ellasandramuse/video/7541176285234515230
+[TikTok] Extracting URL: https://www.tiktok.com/@ellasandramuse/video/7541176285234515230
+[TikTok] 7541176285234515230: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7541176285234515230: Downloading 1 format(s): bytevc1_1080p_1526192-1
+[download] Destination: tmp_downloads/ellasandramuse/@ellasandramuse_2025-08-21_😝😝 @Reneé Noe thx u! _7541176285234515230.mp4
+[download]   0.1% of    1.31MiB at  Unknown B/s ETA Unknown[download]   0.2% of    1.31MiB at  Unknown B/s ETA Unknown[download]   0.5% of    1.31MiB at    6.49MiB/s ETA 00:00  [download]   1.1% of    1.31MiB at   11.12MiB/s ETA 00:00[download]   2.3% of    1.31MiB at    1.49MiB/s ETA 00:00[download]   4.7% of    1.31MiB at    2.58MiB/s ETA 00:00[download]   9.5% of    1.31MiB at    2.96MiB/s ETA 00:00[download]  19.1% of    1.31MiB at    3.99MiB/s ETA 00:00[download]  38.2% of    1.31MiB at    5.43MiB/s ETA 00:00[download]  76.5% of    1.31MiB at    7.94MiB/s ETA 00:00[download] 100.0% of    1.31MiB at    9.28MiB/s ETA 00:00[download] 100% of    1.31MiB in 00:00:00 at 3.68MiB/s   
+[2026-04-30T13:17:34Z] New file downloaded for this URL.
+[2026-04-30T13:17:34Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T13:17:34Z] Copying downloaded files to downloads
+[2026-04-30T13:17:36Z] Processing URL #281:
+[2026-04-30T13:17:36Z] https://www.tiktok.com/@ellasandramuse/video/7542251180051778847
+[TikTok] Extracting URL: https://www.tiktok.com/@ellasandramuse/video/7542251180051778847
+[TikTok] 7542251180051778847: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7542251180051778847: Downloading 1 format(s): bytevc1_1080p_759826-1
+[download] Destination: tmp_downloads/ellasandramuse/@ellasandramuse_2025-08-24_sunday morning vlog before church.. the end🤭 @Ralph Lauren @Clarins U..._7542251180051778847.mp4
+[download]   0.0% of    3.43MiB at  Unknown B/s ETA Unknown[download]   0.1% of    3.43MiB at  Unknown B/s ETA Unknown[download]   0.2% of    3.43MiB at    6.46MiB/s ETA 00:00  [download]   0.4% of    3.43MiB at   10.77MiB/s ETA 00:00[download]   0.9% of    3.43MiB at    1.59MiB/s ETA 00:02[download]   1.8% of    3.43MiB at    2.69MiB/s ETA 00:01[download]   3.6% of    3.43MiB at    2.80MiB/s ETA 00:01[download]   7.3% of    3.43MiB at    3.74MiB/s ETA 00:00[download]  14.5% of    3.43MiB at    5.41MiB/s ETA 00:00[download]  29.1% of    3.43MiB at    8.20MiB/s ETA 00:00[download]  58.2% of    3.43MiB at   11.58MiB/s ETA 00:00[download] 100.0% of    3.43MiB at   14.85MiB/s ETA 00:00[download] 100% of    3.43MiB in 00:00:00 at 6.65MiB/s   
+[2026-04-30T13:17:37Z] New file downloaded for this URL.
+[2026-04-30T13:17:37Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T13:17:37Z] Copying downloaded files to downloads
+[2026-04-30T13:17:39Z] Preparing commit for: batch-56-after-280-successful-downloads
+[2026-04-30T13:17:39Z] Removing video files larger than 90MB from: downloads
