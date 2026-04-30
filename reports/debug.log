@@ -1,0 +1,63 @@
+[2026-04-30T13:03:55Z] Workflow started
+[2026-04-30T13:03:55Z] Current branch: main
+[2026-04-30T13:03:55Z] Batch size: 5
+[2026-04-30T13:03:55Z] Detected command: tiktok-download
+[2026-04-30T13:03:55Z] Download mode: normal
+[2026-04-30T13:03:55Z] No TikTok cookies secret provided. Trying public download.
+[2026-04-30T13:03:55Z] Processing URL #1:
+[2026-04-30T13:03:55Z] https://www.tiktok.com/@duniloonietunes/video/7210872293214489899
+[TikTok] Extracting URL: https://www.tiktok.com/@duniloonietunes/video/7210872293214489899
+[TikTok] 7210872293214489899: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7210872293214489899: Downloading 1 format(s): bytevc1_1080p_2627938-1
+[download] Destination: tmp_downloads/duniloonietunes/@duniloonietunes_2023-03-15_p much_7210872293214489899.mp4
+[download]   0.1% of    1.86MiB at  Unknown B/s ETA Unknown[download]   0.2% of    1.86MiB at  Unknown B/s ETA Unknown[download]   0.4% of    1.86MiB at    6.09MiB/s ETA 00:00  [download]   0.8% of    1.86MiB at    9.28MiB/s ETA 00:00[download]   1.6% of    1.86MiB at   14.52MiB/s ETA 00:00[download]   3.3% of    1.86MiB at    3.55MiB/s ETA 00:00[download]   6.7% of    1.86MiB at    3.76MiB/s ETA 00:00[download]  13.4% of    1.86MiB at    5.02MiB/s ETA 00:00[download]  26.8% of    1.86MiB at    6.93MiB/s ETA 00:00[download]  53.7% of    1.86MiB at    9.81MiB/s ETA 00:00[download] 100.0% of    1.86MiB at   14.77MiB/s ETA 00:00[download] 100% of    1.86MiB in 00:00:00 at 6.24MiB/s   
+[2026-04-30T13:03:57Z] New file downloaded for this URL.
+[2026-04-30T13:03:57Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T13:03:57Z] Copying downloaded files to downloads
+[2026-04-30T13:03:57Z] Processing URL #2:
+[2026-04-30T13:03:57Z] https://www.tiktok.com/@duniloonietunes/video/7214646318965345579
+[TikTok] Extracting URL: https://www.tiktok.com/@duniloonietunes/video/7214646318965345579
+[TikTok] 7214646318965345579: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7214646318965345579: Downloading 1 format(s): bytevc1_1080p_1605110-1
+[download] Destination: tmp_downloads/duniloonietunes/@duniloonietunes_2023-03-26_mom going at it _7214646318965345579.mp4
+[download]   0.0% of    2.18MiB at  Unknown B/s ETA Unknown[download]   0.1% of    2.18MiB at  Unknown B/s ETA Unknown[download]   0.3% of    2.18MiB at    6.45MiB/s ETA 00:00  [download]   0.7% of    2.18MiB at    9.97MiB/s ETA 00:00[download]   1.4% of    2.18MiB at   15.24MiB/s ETA 00:00[download]   2.8% of    2.18MiB at    3.48MiB/s ETA 00:00[download]   5.7% of    2.18MiB at    3.74MiB/s ETA 00:00[download]  11.4% of    2.18MiB at    4.85MiB/s ETA 00:00[download]  22.9% of    2.18MiB at    6.75MiB/s ETA 00:00[download]  45.8% of    2.18MiB at    9.44MiB/s ETA 00:00[download]  91.6% of    2.18MiB at   14.25MiB/s ETA 00:00[download] 100.0% of    2.18MiB at   15.30MiB/s ETA 00:00[download] 100% of    2.18MiB in 00:00:00 at 9.26MiB/s   
+[2026-04-30T13:03:59Z] New file downloaded for this URL.
+[2026-04-30T13:03:59Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T13:03:59Z] Copying downloaded files to downloads
+[2026-04-30T13:03:59Z] Processing URL #3:
+[2026-04-30T13:03:59Z] https://www.tiktok.com/@duniloonietunes/video/7218511844963519786
+[TikTok] Extracting URL: https://www.tiktok.com/@duniloonietunes/video/7218511844963519786
+[TikTok] 7218511844963519786: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7218511844963519786: Downloading 1 format(s): bytevc1_1080p_1989315-1
+[download] Destination: tmp_downloads/duniloonietunes/@duniloonietunes_2023-04-05_pretty much_7218511844963519786.mp4
+[download]   0.0% of    3.56MiB at  Unknown B/s ETA Unknown[download]   0.1% of    3.56MiB at  Unknown B/s ETA Unknown[download]   0.2% of    3.56MiB at    6.17MiB/s ETA 00:00  [download]   0.4% of    3.56MiB at    9.36MiB/s ETA 00:00[download]   0.9% of    3.56MiB at   12.05MiB/s ETA 00:00[download]   1.7% of    3.56MiB at    3.56MiB/s ETA 00:00[download]   3.5% of    3.56MiB at    3.76MiB/s ETA 00:00[download]   7.0% of    3.56MiB at    4.92MiB/s ETA 00:00[download]  14.0% of    3.56MiB at    6.75MiB/s ETA 00:00[download]  28.1% of    3.56MiB at    9.36MiB/s ETA 00:00[download]  56.2% of    3.56MiB at   14.21MiB/s ETA 00:00[download] 100.0% of    3.56MiB at   21.63MiB/s ETA 00:00[download] 100% of    3.56MiB in 00:00:00 at 12.80MiB/s  
+[2026-04-30T13:04:00Z] New file downloaded for this URL.
+[2026-04-30T13:04:00Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T13:04:00Z] Copying downloaded files to downloads
+[2026-04-30T13:04:00Z] Processing URL #4:
+[2026-04-30T13:04:00Z] https://www.tiktok.com/@duniloonietunes/video/7225485773431164203
+[TikTok] Extracting URL: https://www.tiktok.com/@duniloonietunes/video/7225485773431164203
+[TikTok] 7225485773431164203: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7225485773431164203: Downloading 1 format(s): bytevc1_1080p_1487432-1
+[download] Destination: tmp_downloads/duniloonietunes/@duniloonietunes_2023-04-24_TikTok video #7225485773431164203_7225485773431164203.mp4
+[download]   0.0% of    2.25MiB at  Unknown B/s ETA Unknown[download]   0.1% of    2.25MiB at  Unknown B/s ETA Unknown[download]   0.3% of    2.25MiB at    6.51MiB/s ETA 00:00  [download]   0.7% of    2.25MiB at   10.04MiB/s ETA 00:00[download]   1.3% of    2.25MiB at   17.42MiB/s ETA 00:00[download]   2.7% of    2.25MiB at    3.62MiB/s ETA 00:00[download]   5.5% of    2.25MiB at    5.31MiB/s ETA 00:00[download]  11.1% of    2.25MiB at    5.10MiB/s ETA 00:00[download]  22.2% of    2.25MiB at    7.25MiB/s ETA 00:00[download]  44.4% of    2.25MiB at    9.88MiB/s ETA 00:00[download]  88.9% of    2.25MiB at   14.90MiB/s ETA 00:00[download] 100.0% of    2.25MiB at   16.35MiB/s ETA 00:00[download] 100% of    2.25MiB in 00:00:00 at 8.96MiB/s   
+[2026-04-30T13:04:01Z] New file downloaded for this URL.
+[2026-04-30T13:04:01Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T13:04:01Z] Copying downloaded files to downloads
+[2026-04-30T13:04:01Z] Processing URL #5:
+[2026-04-30T13:04:01Z] https://www.tiktok.com/@duniloonietunes/video/7255915311046642987
+[TikTok] Extracting URL: https://www.tiktok.com/@duniloonietunes/video/7255915311046642987
+[TikTok] 7255915311046642987: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7255915311046642987: Downloading 1 format(s): bytevc1_720p_1063702-1
+[download] Destination: tmp_downloads/duniloonietunes/@duniloonietunes_2023-07-15_100k! wtf life is so crazy, i love you guys from the bottom of my ❤️ ..._7255915311046642987.mp4
+[download]   0.1% of    1.34MiB at  Unknown B/s ETA Unknown[download]   0.2% of    1.34MiB at  Unknown B/s ETA Unknown[download]   0.5% of    1.34MiB at    6.25MiB/s ETA 00:00  [download]   1.1% of    1.34MiB at   10.57MiB/s ETA 00:00[download]   2.3% of    1.34MiB at    9.29MiB/s ETA 00:00[download]   4.6% of    1.34MiB at    3.73MiB/s ETA 00:00[download]   9.2% of    1.34MiB at    3.77MiB/s ETA 00:00[download]  18.5% of    1.34MiB at    5.91MiB/s ETA 00:00[download]  37.1% of    1.34MiB at    6.94MiB/s ETA 00:00[download]  74.3% of    1.34MiB at    9.52MiB/s ETA 00:00[download] 100.0% of    1.34MiB at   11.38MiB/s ETA 00:00[download] 100% of    1.34MiB in 00:00:00 at 6.36MiB/s   
+[2026-04-30T13:04:03Z] New file downloaded for this URL.
+[2026-04-30T13:04:03Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T13:04:03Z] Copying downloaded files to downloads
+[2026-04-30T13:04:03Z] Preparing commit for: batch-1-after-5-successful-downloads
+[2026-04-30T13:04:03Z] Removing video files larger than 90MB from: downloads
