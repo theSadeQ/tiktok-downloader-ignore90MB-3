@@ -5273,3 +5273,70 @@ WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate 
 [2026-04-30T13:55:54Z] Copying downloaded files to downloads
 [2026-04-30T13:55:54Z] Preparing commit for: batch-8-after-40-successful-downloads
 [2026-04-30T13:55:54Z] Removing video files larger than 90MB from: downloads
+[main 61fcc47] Add downloaded TikTok files batch-8-after-40-successful-downloads [skip ci]
+ 7 files changed, 72 insertions(+)
+ create mode 100644 downloads/alana.kern/@alana.kern_2025-11-01_#fyp #fakebody #unban _7567878840329014541.mp4
+ create mode 100644 downloads/alana.kern/@alana.kern_2025-11-03_#model #losangeles #funny #fakebody _7568283010408238391.mp4
+ create mode 100644 downloads/alana.kern/@alana.kern_2025-11-04_#hi _7569006200147299598.mp4
+ create mode 100644 "downloads/alana.kern/@alana.kern_2025-11-05_I wasn\342\200\231t gonna post this  #dancing #hi #pokerface _7569278143031201079.mp4"
+ create mode 100644 downloads/alana.kern/@alana.kern_2025-11-06_#hi #messybun #boys _7569666589335833870.mp4
+To https://github.com/theSadeQ/tiktok-downloader-ignore90MB-3
+   60c72f6..61fcc47  HEAD -> main
+[2026-04-30T13:55:56Z] Batch committed and pushed successfully: batch-8-after-40-successful-downloads
+[2026-04-30T13:55:56Z] Processing URL #41:
+[2026-04-30T13:55:56Z] https://www.tiktok.com/@alana.kern/video/7569755674683460878
+[TikTok] Extracting URL: https://www.tiktok.com/@alana.kern/video/7569755674683460878
+[TikTok] 7569755674683460878: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7569755674683460878: Downloading 1 format(s): bytevc1_1080p_1227643-1
+[download] Destination: tmp_downloads/alana.kern/@alana.kern_2025-11-06_Another one ;)  #hi #dance #messybun _7569755674683460878.mp4
+[download]   0.1% of    1.81MiB at  Unknown B/s ETA Unknown[download]   0.2% of    1.81MiB at  Unknown B/s ETA Unknown[download]   0.4% of    1.81MiB at  Unknown B/s ETA Unknown[download]   0.8% of    1.81MiB at   12.22MiB/s ETA 00:00  [download]   1.7% of    1.81MiB at   20.51MiB/s ETA 00:00[download]   3.4% of    1.81MiB at   12.50MiB/s ETA 00:00[download]   6.9% of    1.81MiB at   12.06MiB/s ETA 00:00[download]  13.8% of    1.81MiB at   14.83MiB/s ETA 00:00[download]  27.6% of    1.81MiB at   21.07MiB/s ETA 00:00[download]  55.3% of    1.81MiB at   29.27MiB/s ETA 00:00[download] 100.0% of    1.81MiB at   40.69MiB/s ETA 00:00[download] 100% of    1.81MiB in 00:00:00 at 10.92MiB/s  
+[2026-04-30T13:55:57Z] New file downloaded for this URL.
+[2026-04-30T13:55:57Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T13:55:57Z] Copying downloaded files to downloads
+[2026-04-30T13:55:57Z] Processing URL #42:
+[2026-04-30T13:55:57Z] https://www.tiktok.com/@alana.kern/video/7570047956175408397
+[TikTok] Extracting URL: https://www.tiktok.com/@alana.kern/video/7570047956175408397
+[TikTok] 7570047956175408397: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7570047956175408397: Downloading 1 format(s): bytevc1_1080p_1394791-1
+[download] Destination: tmp_downloads/alana.kern/@alana.kern_2025-11-07_Matchaaa ＞＞  #hi #matcha #love #fyp _7570047956175408397.mp4
+[download]   0.1% of    1.24MiB at  Unknown B/s ETA Unknown[download]   0.2% of    1.24MiB at  Unknown B/s ETA Unknown[download]   0.6% of    1.24MiB at    6.50MiB/s ETA 00:00  [download]   1.2% of    1.24MiB at   11.16MiB/s ETA 00:00[download]   2.4% of    1.24MiB at   18.96MiB/s ETA 00:00[download]   5.0% of    1.24MiB at   10.36MiB/s ETA 00:00[download]  10.0% of    1.24MiB at   15.98MiB/s ETA 00:00[download]  20.1% of    1.24MiB at   17.63MiB/s ETA 00:00[download]  40.3% of    1.24MiB at   21.29MiB/s ETA 00:00[download]  80.6% of    1.24MiB at   30.12MiB/s ETA 00:00[download] 100.0% of    1.24MiB at   34.12MiB/s ETA 00:00[download] 100% of    1.24MiB in 00:00:00 at 6.16MiB/s   
+[2026-04-30T13:55:58Z] New file downloaded for this URL.
+[2026-04-30T13:55:58Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T13:55:58Z] Copying downloaded files to downloads
+[2026-04-30T13:55:59Z] Processing URL #43:
+[2026-04-30T13:55:59Z] https://www.tiktok.com/@alana.kern/video/7570751604576619790
+[TikTok] Extracting URL: https://www.tiktok.com/@alana.kern/video/7570751604576619790
+[TikTok] 7570751604576619790: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7570751604576619790: Downloading 1 format(s): bytevc1_1080p_1101485-1
+[download] Destination: tmp_downloads/alana.kern/@alana.kern_2025-11-09_#dance #funny #cowgirl #fyp _7570751604576619790.mp4
+[download]   0.1% of    1.79MiB at  Unknown B/s ETA Unknown[download]   0.2% of    1.79MiB at  Unknown B/s ETA Unknown[download]   0.4% of    1.79MiB at    6.81MiB/s ETA 00:00  [download]   0.8% of    1.79MiB at   11.58MiB/s ETA 00:00[download]   1.7% of    1.79MiB at   19.10MiB/s ETA 00:00[download]   3.4% of    1.79MiB at   13.47MiB/s ETA 00:00[download]   6.9% of    1.79MiB at   12.61MiB/s ETA 00:00[download]  13.9% of    1.79MiB at   16.06MiB/s ETA 00:00[download]  27.9% of    1.79MiB at   22.12MiB/s ETA 00:00[download]  55.9% of    1.79MiB at   30.32MiB/s ETA 00:00[download] 100.0% of    1.79MiB at   42.36MiB/s ETA 00:00[download] 100% of    1.79MiB in 00:00:00 at 5.28MiB/s   
+[2026-04-30T13:56:00Z] New file downloaded for this URL.
+[2026-04-30T13:56:00Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T13:56:00Z] Copying downloaded files to downloads
+[2026-04-30T13:56:00Z] Processing URL #44:
+[2026-04-30T13:56:00Z] https://www.tiktok.com/@alana.kern/video/7570847890382392589
+[TikTok] Extracting URL: https://www.tiktok.com/@alana.kern/video/7570847890382392589
+[TikTok] 7570847890382392589: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7570847890382392589: Downloading 1 format(s): bytevc1_1080p_655915-1
+[download] Destination: tmp_downloads/alana.kern/@alana.kern_2025-11-09_#questions #men #losangeles #girls _7570847890382392589.mp4
+[download]   0.1% of    1.02MiB at  Unknown B/s ETA Unknown[download]   0.3% of    1.02MiB at  Unknown B/s ETA Unknown[download]   0.7% of    1.02MiB at  Unknown B/s ETA Unknown[download]   1.4% of    1.02MiB at   11.98MiB/s ETA 00:00  [download]   3.0% of    1.02MiB at   19.93MiB/s ETA 00:00[download]   6.0% of    1.02MiB at   12.73MiB/s ETA 00:00[download]  12.2% of    1.02MiB at   12.29MiB/s ETA 00:00[download]  24.4% of    1.02MiB at   15.41MiB/s ETA 00:00[download]  49.0% of    1.02MiB at   21.74MiB/s ETA 00:00[download]  98.0% of    1.02MiB at   28.29MiB/s ETA 00:00[download] 100.0% of    1.02MiB at   28.49MiB/s ETA 00:00[download] 100% of    1.02MiB in 00:00:00 at 4.73MiB/s   
+[2026-04-30T13:56:01Z] New file downloaded for this URL.
+[2026-04-30T13:56:01Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T13:56:01Z] Copying downloaded files to downloads
+[2026-04-30T13:56:01Z] Processing URL #45:
+[2026-04-30T13:56:01Z] https://www.tiktok.com/@alana.kern/video/7571146871486401805
+[TikTok] Extracting URL: https://www.tiktok.com/@alana.kern/video/7571146871486401805
+[TikTok] 7571146871486401805: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7571146871486401805: Downloading 1 format(s): bytevc1_1080p_812231-1
+[download] Destination: tmp_downloads/alana.kern/@alana.kern_2025-11-10_#dance #funny #fyp #foryoupage _7571146871486401805.mp4
+[download]   0.1% of    1.45MiB at  Unknown B/s ETA Unknown[download]   0.2% of    1.45MiB at  Unknown B/s ETA Unknown[download]   0.5% of    1.45MiB at  Unknown B/s ETA Unknown[download]   1.0% of    1.45MiB at   12.36MiB/s ETA 00:00  [download]   2.1% of    1.45MiB at   20.52MiB/s ETA 00:00[download]   4.2% of    1.45MiB at   13.15MiB/s ETA 00:00[download]   8.5% of    1.45MiB at   12.55MiB/s ETA 00:00[download]  17.1% of    1.45MiB at   16.45MiB/s ETA 00:00[download]  34.4% of    1.45MiB at   20.92MiB/s ETA 00:00[download]  68.8% of    1.45MiB at   27.49MiB/s ETA 00:00[download] 100.0% of    1.45MiB at   34.39MiB/s ETA 00:00[download] 100% of    1.45MiB in 00:00:00 at 7.04MiB/s   
+[2026-04-30T13:56:02Z] New file downloaded for this URL.
+[2026-04-30T13:56:02Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T13:56:02Z] Copying downloaded files to downloads
+[2026-04-30T13:56:03Z] Preparing commit for: batch-9-after-45-successful-downloads
+[2026-04-30T13:56:03Z] Removing video files larger than 90MB from: downloads
