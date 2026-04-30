@@ -4717,3 +4717,27 @@ WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate 
 [2026-04-30T13:23:28Z] Copying downloaded files to downloads
 [2026-04-30T13:23:30Z] Preparing commit for: batch-70-after-350-successful-downloads
 [2026-04-30T13:23:30Z] Removing video files larger than 90MB from: downloads
+[main 076f32e] Add downloaded TikTok files batch-70-after-350-successful-downloads [skip ci]
+ 7 files changed, 72 insertions(+)
+ create mode 100644 "downloads/ellasandramuse/@ellasandramuse_2026-04-25_devouring transition btw \360\237\244\240 @Rene\303\251 Noe _7632531794931371294.mp4"
+ create mode 100644 "downloads/ellasandramuse/@ellasandramuse_2026-04-25_the queen ragebaiter gets ragebaited @Rene\303\251 Noe _7632827839921818910.mp4"
+ create mode 100644 "downloads/ellasandramuse/@ellasandramuse_2026-04-26_I say we count our losses @Rene\303\251 Noe _7632924211056577823.mp4"
+ create mode 100644 "downloads/ellasandramuse/@ellasandramuse_2026-04-26_sta(y at home)gecoach \360\237\244\240  _7632905467890601246.mp4"
+ create mode 100644 downloads/ellasandramuse/@ellasandramuse_2026-04-26_we are obsessed w @SONIC Drive-In refreshers & u will be too!!  #SONI..._7633174796146167070.mp4
+To https://github.com/theSadeQ/tiktok-downloader-ignore90MB-3
+   0493998..076f32e  HEAD -> main
+[2026-04-30T13:23:37Z] Batch committed and pushed successfully: batch-70-after-350-successful-downloads
+[2026-04-30T13:23:37Z] Processing URL #353:
+[2026-04-30T13:23:37Z] https://www.tiktok.com/@ellasandramuse/video/7633249567261166879
+[TikTok] Extracting URL: https://www.tiktok.com/@ellasandramuse/video/7633249567261166879
+[TikTok] 7633249567261166879: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7633249567261166879: Downloading 1 format(s): bytevc1_720p_1038595-1
+[download] Destination: tmp_downloads/ellasandramuse/@ellasandramuse_2026-04-27_stagecoach day 3 transition with the final infinity stone (our brothe..._7633249567261166879.mp4
+[download]   0.0% of    1.99MiB at  Unknown B/s ETA Unknown[download]   0.1% of    1.99MiB at  Unknown B/s ETA Unknown[download]   0.3% of    1.99MiB at    6.63MiB/s ETA 00:00  [download]   0.7% of    1.99MiB at   10.75MiB/s ETA 00:00[download]   1.5% of    1.99MiB at   12.49MiB/s ETA 00:00[download]   3.1% of    1.99MiB at    3.56MiB/s ETA 00:00[download]   6.2% of    1.99MiB at    3.79MiB/s ETA 00:00[download]  12.5% of    1.99MiB at    4.88MiB/s ETA 00:00[download]  25.1% of    1.99MiB at    6.79MiB/s ETA 00:00[download]  50.2% of    1.99MiB at    9.52MiB/s ETA 00:00[download] 100.0% of    1.99MiB at   14.46MiB/s ETA 00:00[download] 100% of    1.99MiB in 00:00:00 at 9.12MiB/s   
+[2026-04-30T13:23:38Z] New file downloaded for this URL.
+[2026-04-30T13:23:38Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T13:23:38Z] Copying downloaded files to downloads
+[2026-04-30T13:23:41Z] Running final commit for remaining files/reports.
+[2026-04-30T13:23:41Z] Preparing commit for: final
+[2026-04-30T13:23:41Z] Removing video files larger than 90MB from: downloads
