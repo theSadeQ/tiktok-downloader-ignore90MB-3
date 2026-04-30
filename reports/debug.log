@@ -1620,3 +1620,70 @@ WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate 
 [2026-04-30T13:08:24Z] Copying downloaded files to downloads
 [2026-04-30T13:08:25Z] Preparing commit for: batch-24-after-120-successful-downloads
 [2026-04-30T13:08:25Z] Removing video files larger than 90MB from: downloads
+[main 2fdf9f9] Add downloaded TikTok files batch-24-after-120-successful-downloads [skip ci]
+ 7 files changed, 72 insertions(+)
+ create mode 100644 "downloads/ellasandramuse/@ellasandramuse_2024-04-07_yin and yang sisters \360\237\221\257\342\200\215\342\231\200\357\270\217 @Sofia muse _7355211134967762219.mp4"
+ create mode 100644 "downloads/ellasandramuse/@ellasandramuse_2024-04-13_grwm for coachella day 2!! @Rene\303\251 Noe we are barely hanging on tbh \360\237\214\265\360\237\252\251..._7357492311816768810.mp4"
+ create mode 100644 "downloads/ellasandramuse/@ellasandramuse_2024-04-14_this would be so healing and id sell all my belongings to go \360\237\231\207\342\200\215\342\231\200\357\270\217\360\237\231\207_7357790881153420586.mp4"
+ create mode 100644 "downloads/ellasandramuse/@ellasandramuse_2024-04-17_I wish u guys could hear the audio of this I was crying\360\237\222\200 @Sofia muse ..._7358983283830508842.mp4"
+ create mode 100644 downloads/ellasandramuse/@ellasandramuse_2024-04-27_this dance eats @Sofia muse _7362370891797302574.mp4
+To https://github.com/theSadeQ/tiktok-downloader-ignore90MB-3
+   9f021a9..2fdf9f9  HEAD -> main
+[2026-04-30T13:08:29Z] Batch committed and pushed successfully: batch-24-after-120-successful-downloads
+[2026-04-30T13:08:29Z] Processing URL #122:
+[2026-04-30T13:08:29Z] https://www.tiktok.com/@ellasandramuse/video/7364827476364741931
+[TikTok] Extracting URL: https://www.tiktok.com/@ellasandramuse/video/7364827476364741931
+[TikTok] 7364827476364741931: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7364827476364741931: Downloading 1 format(s): bytevc1_1080p_1260032-1
+[download] Destination: tmp_downloads/ellasandramuse/@ellasandramuse_2024-05-03_lets just say we had a lot to catch up on😊💀 we had to redo our fav vi..._7364827476364741931.mp4
+[download]   0.0% of    2.16MiB at  Unknown B/s ETA Unknown[download]   0.1% of    2.16MiB at  Unknown B/s ETA Unknown[download]   0.3% of    2.16MiB at    6.52MiB/s ETA 00:00  [download]   0.7% of    2.16MiB at    9.93MiB/s ETA 00:00[download]   1.4% of    2.16MiB at   16.18MiB/s ETA 00:00[download]   2.8% of    2.16MiB at    3.76MiB/s ETA 00:00[download]   5.7% of    2.16MiB at    5.61MiB/s ETA 00:00[download]  11.5% of    2.16MiB at    4.94MiB/s ETA 00:00[download]  23.1% of    2.16MiB at    6.79MiB/s ETA 00:00[download]  46.2% of    2.16MiB at    9.58MiB/s ETA 00:00[download]  92.5% of    2.16MiB at   14.34MiB/s ETA 00:00[download] 100.0% of    2.16MiB at   15.31MiB/s ETA 00:00[download] 100% of    2.16MiB in 00:00:00 at 6.86MiB/s   
+[2026-04-30T13:08:31Z] New file downloaded for this URL.
+[2026-04-30T13:08:31Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T13:08:31Z] Copying downloaded files to downloads
+[2026-04-30T13:08:31Z] Processing URL #123:
+[2026-04-30T13:08:31Z] https://www.tiktok.com/@ellasandramuse/video/7367144553381416235
+[TikTok] Extracting URL: https://www.tiktok.com/@ellasandramuse/video/7367144553381416235
+[TikTok] 7367144553381416235: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7367144553381416235: Downloading 1 format(s): bytevc1_1080p_1976575-1
+[download] Destination: tmp_downloads/ellasandramuse/@ellasandramuse_2024-05-09_too niche？💀 ITS BASICALLY SUMMER GUYS_7367144553381416235.mp4
+[download]   0.0% of    2.74MiB at  Unknown B/s ETA Unknown[download]   0.1% of    2.74MiB at  Unknown B/s ETA Unknown[download]   0.2% of    2.74MiB at    6.59MiB/s ETA 00:00  [download]   0.5% of    2.74MiB at   11.09MiB/s ETA 00:00[download]   1.1% of    2.74MiB at   14.99MiB/s ETA 00:00[download]   2.2% of    2.74MiB at    3.85MiB/s ETA 00:00[download]   4.5% of    2.74MiB at    5.64MiB/s ETA 00:00[download]   9.1% of    2.74MiB at    5.90MiB/s ETA 00:00[download]  18.2% of    2.74MiB at    7.14MiB/s ETA 00:00[download]  36.4% of    2.74MiB at    9.79MiB/s ETA 00:00[download]  72.9% of    2.74MiB at   14.70MiB/s ETA 00:00[download] 100.0% of    2.74MiB at   18.08MiB/s ETA 00:00[download] 100% of    2.74MiB in 00:00:00 at 7.91MiB/s   
+[2026-04-30T13:08:32Z] New file downloaded for this URL.
+[2026-04-30T13:08:32Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T13:08:32Z] Copying downloaded files to downloads
+[2026-04-30T13:08:33Z] Processing URL #124:
+[2026-04-30T13:08:33Z] https://www.tiktok.com/@ellasandramuse/video/7367899747547434282
+[TikTok] Extracting URL: https://www.tiktok.com/@ellasandramuse/video/7367899747547434282
+[TikTok] 7367899747547434282: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7367899747547434282: Downloading 1 format(s): bytevc1_1080p_1065045-1
+[download] Destination: tmp_downloads/ellasandramuse/@ellasandramuse_2024-05-12_actually though @Anabelle Jean instant sisters I love you so so much ..._7367899747547434282.mp4
+[download]   0.1% of    1.57MiB at  469.27KiB/s ETA 00:03[download]   0.2% of    1.57MiB at    1.14MiB/s ETA 00:01[download]   0.4% of    1.57MiB at    2.43MiB/s ETA 00:00[download]   0.9% of    1.57MiB at    4.79MiB/s ETA 00:00[download]   1.9% of    1.57MiB at    8.33MiB/s ETA 00:00[download]   3.9% of    1.57MiB at    3.83MiB/s ETA 00:00[download]   7.9% of    1.57MiB at    5.13MiB/s ETA 00:00[download]  15.8% of    1.57MiB at    5.78MiB/s ETA 00:00[download]  31.7% of    1.57MiB at    7.00MiB/s ETA 00:00[download]  63.5% of    1.57MiB at    9.59MiB/s ETA 00:00[download] 100.0% of    1.57MiB at   12.82MiB/s ETA 00:00[download] 100% of    1.57MiB in 00:00:00 at 4.81MiB/s   
+[2026-04-30T13:08:34Z] New file downloaded for this URL.
+[2026-04-30T13:08:34Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T13:08:34Z] Copying downloaded files to downloads
+[2026-04-30T13:08:34Z] Processing URL #125:
+[2026-04-30T13:08:34Z] https://www.tiktok.com/@ellasandramuse/video/7369725886729342238
+[TikTok] Extracting URL: https://www.tiktok.com/@ellasandramuse/video/7369725886729342238
+[TikTok] 7369725886729342238: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7369725886729342238: Downloading 1 format(s): bytevc1_1080p_681661-1
+[download] Destination: tmp_downloads/ellasandramuse/@ellasandramuse_2024-05-16_im gonna give u all the ick 💀💀 _7369725886729342238.mp4
+[download]   0.0% of    3.65MiB at  Unknown B/s ETA Unknown[download]   0.1% of    3.65MiB at  Unknown B/s ETA Unknown[download]   0.2% of    3.65MiB at    6.08MiB/s ETA 00:00  [download]   0.4% of    3.65MiB at   10.19MiB/s ETA 00:00[download]   0.8% of    3.65MiB at   14.83MiB/s ETA 00:00[download]   1.7% of    3.65MiB at    2.53MiB/s ETA 00:01[download]   3.4% of    3.65MiB at    2.68MiB/s ETA 00:01[download]   6.8% of    3.65MiB at    3.56MiB/s ETA 00:00[download]  13.7% of    3.65MiB at    5.10MiB/s ETA 00:00[download]  27.3% of    3.65MiB at    7.74MiB/s ETA 00:00[download]  54.7% of    3.65MiB at   12.23MiB/s ETA 00:00[download] 100.0% of    3.65MiB at   19.20MiB/s ETA 00:00[download] 100% of    3.65MiB in 00:00:00 at 6.21MiB/s   
+[2026-04-30T13:08:36Z] New file downloaded for this URL.
+[2026-04-30T13:08:36Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T13:08:36Z] Copying downloaded files to downloads
+[2026-04-30T13:08:36Z] Processing URL #126:
+[2026-04-30T13:08:36Z] https://www.tiktok.com/@ellasandramuse/video/7370099237280943391
+[TikTok] Extracting URL: https://www.tiktok.com/@ellasandramuse/video/7370099237280943391
+[TikTok] 7370099237280943391: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7370099237280943391: Downloading 1 format(s): bytevc1_1080p_879050-1
+[download] Destination: tmp_downloads/ellasandramuse/@ellasandramuse_2024-05-17_just trying to have a regular convo w her & her heads out the freakin..._7370099237280943391.mp4
+[download]   0.0% of    1.96MiB at  Unknown B/s ETA Unknown[download]   0.1% of    1.96MiB at  Unknown B/s ETA Unknown[download]   0.3% of    1.96MiB at    6.55MiB/s ETA 00:00  [download]   0.7% of    1.96MiB at   11.42MiB/s ETA 00:00[download]   1.5% of    1.96MiB at   17.44MiB/s ETA 00:00[download]   3.1% of    1.96MiB at    2.84MiB/s ETA 00:00[download]   6.3% of    1.96MiB at    3.07MiB/s ETA 00:00[download]  12.7% of    1.96MiB at    4.00MiB/s ETA 00:00[download]  25.5% of    1.96MiB at    5.45MiB/s ETA 00:00[download]  51.0% of    1.96MiB at    8.50MiB/s ETA 00:00[download] 100.0% of    1.96MiB at   13.09MiB/s ETA 00:00[download] 100% of    1.96MiB in 00:00:00 at 3.95MiB/s   
+[2026-04-30T13:08:38Z] New file downloaded for this URL.
+[2026-04-30T13:08:38Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T13:08:38Z] Copying downloaded files to downloads
+[2026-04-30T13:08:38Z] Preparing commit for: batch-25-after-125-successful-downloads
+[2026-04-30T13:08:38Z] Removing video files larger than 90MB from: downloads
