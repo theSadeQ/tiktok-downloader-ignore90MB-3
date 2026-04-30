@@ -9978,3 +9978,70 @@ WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate 
 [2026-04-30T14:11:36Z] Copying downloaded files to downloads
 [2026-04-30T14:11:38Z] Preparing commit for: batch-78-after-390-successful-downloads
 [2026-04-30T14:11:38Z] Removing video files larger than 90MB from: downloads
+[main e4b0f71] Add downloaded TikTok files batch-78-after-390-successful-downloads [skip ci]
+ 7 files changed, 72 insertions(+)
+ create mode 100644 "downloads/im.hailey.shea/@im.hailey.shea_2025-04-18_I don\342\200\231t get it \360\237\245\271  #fyp #anxiety #haileyshea #funnyvideos #beautiful #..._7494566072885169454.mp4"
+ create mode 100644 "downloads/im.hailey.shea/@im.hailey.shea_2025-04-20_Is that the same girl\357\274\237 Yes #transition #shorthair #fyp #reels #hailey..._7495278691488959787.mp4"
+ create mode 100644 downloads/im.hailey.shea/@im.hailey.shea_2025-04-28_Whoever can read this gets a high five #fyp #funnyvideos _7498400882552212782.mp4
+ create mode 100644 downloads/im.hailey.shea/@im.hailey.shea_2025-04-30_TikTok video #7498906331269795118_7498906331269795118.mp4
+ create mode 100644 "downloads/im.hailey.shea/@im.hailey.shea_2025-05-01_Hey it\342\200\231s me  #redhair #shorthair #fyp #unexpected #tattedgirl _7499269622537932062.mp4"
+To https://github.com/theSadeQ/tiktok-downloader-ignore90MB-3
+   a6ecf52..e4b0f71  HEAD -> main
+[2026-04-30T14:11:42Z] Batch committed and pushed successfully: batch-78-after-390-successful-downloads
+[2026-04-30T14:11:42Z] Processing URL #392:
+[2026-04-30T14:11:42Z] https://www.tiktok.com/@im.hailey.shea/video/7499999743980997934
+[TikTok] Extracting URL: https://www.tiktok.com/@im.hailey.shea/video/7499999743980997934
+[TikTok] 7499999743980997934: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7499999743980997934: Downloading 1 format(s): h264_360p_688895-1
+[download] Destination: tmp_downloads/im.hailey.shea/@im.hailey.shea_2025-05-02_Ok now I’m also on this trend #extramomey #shorthairgirl #haileyshea _7499999743980997934.mp4
+[download]   0.1% of  806.37KiB at  Unknown B/s ETA Unknown[download]   0.4% of  806.37KiB at  Unknown B/s ETA Unknown[download]   0.9% of  806.37KiB at  Unknown B/s ETA Unknown[download]   1.9% of  806.37KiB at   12.62MiB/s ETA 00:00  [download]   3.8% of  806.37KiB at   20.64MiB/s ETA 00:00[download]   7.8% of  806.37KiB at   11.16MiB/s ETA 00:00[download]  15.7% of  806.37KiB at   11.84MiB/s ETA 00:00[download]  31.6% of  806.37KiB at   15.08MiB/s ETA 00:00[download]  63.4% of  806.37KiB at   18.78MiB/s ETA 00:00[download] 100.0% of  806.37KiB at   23.88MiB/s ETA 00:00[download] 100% of  806.37KiB in 00:00:00 at 11.99MiB/s  
+[2026-04-30T14:11:43Z] New file downloaded for this URL.
+[2026-04-30T14:11:43Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T14:11:43Z] Copying downloaded files to downloads
+[2026-04-30T14:11:45Z] Processing URL #393:
+[2026-04-30T14:11:45Z] https://www.tiktok.com/@im.hailey.shea/video/7500749426760518942
+[TikTok] Extracting URL: https://www.tiktok.com/@im.hailey.shea/video/7500749426760518942
+[TikTok] 7500749426760518942: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7500749426760518942: Downloading 1 format(s): h264_360p_533233-1
+[download] Destination: tmp_downloads/im.hailey.shea/@im.hailey.shea_2025-05-05_You look cute #funnyvideo #stem #glassesgirl #shorthairgirl _7500749426760518942.mp4
+[download]   0.2% of  650.92KiB at  Unknown B/s ETA Unknown[download]   0.5% of  650.92KiB at  Unknown B/s ETA Unknown[download]   1.1% of  650.92KiB at  Unknown B/s ETA Unknown[download]   2.3% of  650.92KiB at   12.80MiB/s ETA 00:00  [download]   4.8% of  650.92KiB at    1.29MiB/s ETA 00:00[download]   9.7% of  650.92KiB at    2.53MiB/s ETA 00:00[download]  19.5% of  650.92KiB at    2.56MiB/s ETA 00:00[download]  39.2% of  650.92KiB at    3.42MiB/s ETA 00:00[download]  78.5% of  650.92KiB at    5.15MiB/s ETA 00:00[download] 100.0% of  650.92KiB at    6.29MiB/s ETA 00:00[download] 100% of  650.92KiB in 00:00:00 at 2.00MiB/s   
+[2026-04-30T14:11:46Z] New file downloaded for this URL.
+[2026-04-30T14:11:46Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T14:11:46Z] Copying downloaded files to downloads
+[2026-04-30T14:11:48Z] Processing URL #394:
+[2026-04-30T14:11:48Z] https://www.tiktok.com/@im.hailey.shea/video/7501108486819040558
+[TikTok] Extracting URL: https://www.tiktok.com/@im.hailey.shea/video/7501108486819040558
+[TikTok] 7501108486819040558: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7501108486819040558: Downloading 1 format(s): h264_360p_329802-1
+[download] Destination: tmp_downloads/im.hailey.shea/@im.hailey.shea_2025-05-05_Nothing is cuter than her #shorthairgirl _7501108486819040558.mp4
+[download]   0.1% of  882.44KiB at  Unknown B/s ETA Unknown[download]   0.3% of  882.44KiB at  Unknown B/s ETA Unknown[download]   0.8% of  882.44KiB at    6.71MiB/s ETA 00:00  [download]   1.7% of  882.44KiB at   11.03MiB/s ETA 00:00[download]   3.5% of  882.44KiB at   18.52MiB/s ETA 00:00[download]   7.1% of  882.44KiB at   12.30MiB/s ETA 00:00[download]  14.4% of  882.44KiB at   11.86MiB/s ETA 00:00[download]  28.9% of  882.44KiB at   13.53MiB/s ETA 00:00[download]  57.9% of  882.44KiB at   17.04MiB/s ETA 00:00[download] 100.0% of  882.44KiB at   21.80MiB/s ETA 00:00[download] 100% of  882.44KiB in 00:00:00 at 4.82MiB/s   
+[2026-04-30T14:11:49Z] New file downloaded for this URL.
+[2026-04-30T14:11:49Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T14:11:50Z] Copying downloaded files to downloads
+[2026-04-30T14:11:51Z] Processing URL #395:
+[2026-04-30T14:11:51Z] https://www.tiktok.com/@im.hailey.shea/video/7501340812542823722
+[TikTok] Extracting URL: https://www.tiktok.com/@im.hailey.shea/video/7501340812542823722
+[TikTok] 7501340812542823722: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7501340812542823722: Downloading 1 format(s): bytevc1_540p_587117-1
+[download] Destination: tmp_downloads/im.hailey.shea/@im.hailey.shea_2025-05-06_You want some？ #boattrip #shorthairgirl _7501340812542823722.mp4
+[download]   0.1% of    1.02MiB at  Unknown B/s ETA Unknown[download]   0.3% of    1.02MiB at  Unknown B/s ETA Unknown[download]   0.7% of    1.02MiB at  Unknown B/s ETA Unknown[download]   1.4% of    1.02MiB at   11.19MiB/s ETA 00:00  [download]   3.0% of    1.02MiB at   18.53MiB/s ETA 00:00[download]   6.0% of    1.02MiB at   12.45MiB/s ETA 00:00[download]  12.1% of    1.02MiB at   12.54MiB/s ETA 00:00[download]  24.4% of    1.02MiB at   14.35MiB/s ETA 00:00[download]  48.8% of    1.02MiB at   18.16MiB/s ETA 00:00[download]  97.7% of    1.02MiB at   20.89MiB/s ETA 00:00[download] 100.0% of    1.02MiB at   21.18MiB/s ETA 00:00[download] 100% of    1.02MiB in 00:00:00 at 6.45MiB/s   
+[2026-04-30T14:11:53Z] New file downloaded for this URL.
+[2026-04-30T14:11:53Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T14:11:53Z] Copying downloaded files to downloads
+[2026-04-30T14:11:54Z] Processing URL #396:
+[2026-04-30T14:11:54Z] https://www.tiktok.com/@im.hailey.shea/video/7501494394013371691
+[TikTok] Extracting URL: https://www.tiktok.com/@im.hailey.shea/video/7501494394013371691
+[TikTok] 7501494394013371691: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7501494394013371691: Downloading 1 format(s): h264_360p_424312-1
+[download] Destination: tmp_downloads/im.hailey.shea/@im.hailey.shea_2025-05-07_Not always a fairy #fairy #shorthairgir #fyp _7501494394013371691.mp4
+[download]   0.4% of  248.93KiB at  Unknown B/s ETA Unknown[download]   1.2% of  248.93KiB at  Unknown B/s ETA Unknown[download]   2.8% of  248.93KiB at  Unknown B/s ETA Unknown[download]   6.0% of  248.93KiB at   14.18MiB/s ETA 00:00  [download]  12.5% of  248.93KiB at   23.76MiB/s ETA 00:00[download]  25.3% of  248.93KiB at   13.30MiB/s ETA 00:00[download]  51.0% of  248.93KiB at   12.71MiB/s ETA 00:00[download] 100.0% of  248.93KiB at   18.49MiB/s ETA 00:00[download] 100% of  248.93KiB in 00:00:00 at 1.82MiB/s   
+[2026-04-30T14:11:56Z] New file downloaded for this URL.
+[2026-04-30T14:11:56Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-04-30T14:11:56Z] Copying downloaded files to downloads
+[2026-04-30T14:11:57Z] Preparing commit for: batch-79-after-395-successful-downloads
+[2026-04-30T14:11:57Z] Removing video files larger than 90MB from: downloads
