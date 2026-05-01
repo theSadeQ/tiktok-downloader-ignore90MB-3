@@ -11014,3 +11014,70 @@ WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate 
 [2026-05-01T05:05:27Z] Copying downloaded files to downloads
 [2026-05-01T05:05:27Z] Preparing commit for: batch-6-after-30-successful-downloads
 [2026-05-01T05:05:27Z] Removing video files larger than 90MB from: downloads
+[main 6964e73] Add downloaded TikTok files batch-6-after-30-successful-downloads [skip ci]
+ 7 files changed, 72 insertions(+)
+ create mode 100644 "downloads/paaiiggey/@paaiiggey_2026-04-30_Since yall are running this one up let\342\200\231s do it again!! #fyp #fy #fypa..._7634702272160730381.mp4"
+ create mode 100644 downloads/secretuser111333777/@secretuser111333777_2026-05-01_TikTok video #7634722650836782367_7634722650836782367.mp4
+ create mode 100644 downloads/sierrenataraa/@sierrenataraa_2026-04-30_sooo good  #acaibowl #foodreview #fyp _7634660599686843679.mp4
+ create mode 100644 downloads/sierrenataraa/@sierrenataraa_2026-05-01_BRUMDUMDUMDUMDUM @Queen #youngnturnt #fyp _7634775545443650847.mp4
+ create mode 100644 downloads/sierrenataraa/@sierrenataraa_2026-05-01_NIGHT OUT W BESTIE @Queen #fyp #LA _7634774834647420190.mp4
+To https://github.com/theSadeQ/tiktok-downloader-ignore90MB-3
+   a0ecbfa..6964e73  HEAD -> main
+[2026-05-01T05:05:31Z] Batch committed and pushed successfully: batch-6-after-30-successful-downloads
+[2026-05-01T05:05:31Z] Processing URL #52:
+[2026-05-01T05:05:31Z] https://www.tiktok.com/@skilahdjs/video/7634688163390246158
+[TikTok] Extracting URL: https://www.tiktok.com/@skilahdjs/video/7634688163390246158
+[TikTok] 7634688163390246158: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7634688163390246158: Downloading 1 format(s): h264_720p_1371642-1
+[download] Destination: tmp_downloads/skilahdjs/@skilahdjs_2026-04-30_#techhouse #dj #femaledj _7634688163390246158.mp4
+[download]   0.0% of    3.41MiB at  Unknown B/s ETA Unknown[download]   0.1% of    3.41MiB at  Unknown B/s ETA Unknown[download]   0.2% of    3.41MiB at    6.52MiB/s ETA 00:00  [download]   0.4% of    3.41MiB at    9.60MiB/s ETA 00:00[download]   0.9% of    3.41MiB at   15.93MiB/s ETA 00:00[download]   1.8% of    3.41MiB at   27.28MiB/s ETA 00:00[download]   3.6% of    3.41MiB at   33.84MiB/s ETA 00:00[download]   7.3% of    3.41MiB at   47.12MiB/s ETA 00:00[download]  14.6% of    3.41MiB at   67.36MiB/s ETA 00:00[download]  29.3% of    3.41MiB at   84.06MiB/s ETA 00:00[download]  58.6% of    3.41MiB at  126.30MiB/s ETA 00:00[download] 100.0% of    3.41MiB at  164.94MiB/s ETA 00:00[download] 100% of    3.41MiB in 00:00:00 at 23.15MiB/s  
+[2026-05-01T05:05:33Z] New file downloaded for this URL.
+[2026-05-01T05:05:33Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-05-01T05:05:33Z] Copying downloaded files to downloads
+[2026-05-01T05:05:33Z] Processing URL #53:
+[2026-05-01T05:05:33Z] https://www.tiktok.com/@skilahdjs/video/7634706422994832653
+[TikTok] Extracting URL: https://www.tiktok.com/@skilahdjs/video/7634706422994832653
+[TikTok] 7634706422994832653: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7634706422994832653: Downloading 1 format(s): audio
+[download] Destination: tmp_downloads/skilahdjs/@skilahdjs_2026-05-01_TICKETS IN MY HOOBE UNDER TOUR #techhouse #dj #femaledj #newyork _7634706422994832653.m4a
+[download]   0.1% of  775.23KiB at  Unknown B/s ETA Unknown[download]   0.4% of  775.23KiB at  Unknown B/s ETA Unknown[download]   0.9% of  775.23KiB at  Unknown B/s ETA Unknown[download]   1.9% of  775.23KiB at   13.30MiB/s ETA 00:00  [download]   4.0% of  775.23KiB at   22.07MiB/s ETA 00:00[download]   8.1% of  775.23KiB at   36.96MiB/s ETA 00:00[download]  16.4% of  775.23KiB at   39.83MiB/s ETA 00:00[download]  32.9% of  775.23KiB at   53.38MiB/s ETA 00:00[download]  65.9% of  775.23KiB at   71.30MiB/s ETA 00:00[download] 100.0% of  775.23KiB at   89.45MiB/s ETA 00:00[download] 100% of  775.23KiB in 00:00:00 at 5.87MiB/s   
+[2026-05-01T05:05:34Z] New file downloaded for this URL.
+[2026-05-01T05:05:34Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-05-01T05:05:34Z] Copying downloaded files to downloads
+[2026-05-01T05:05:34Z] Processing URL #54:
+[2026-05-01T05:05:34Z] https://www.tiktok.com/@skilahdjs/video/7634709914597838094
+[TikTok] Extracting URL: https://www.tiktok.com/@skilahdjs/video/7634709914597838094
+[TikTok] 7634709914597838094: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7634709914597838094: Downloading 1 format(s): h264_720p_1699502-1
+[download] Destination: tmp_downloads/skilahdjs/@skilahdjs_2026-05-01_should I release this #bass #wubz #houemusic _7634709914597838094.mp4
+[download]   0.0% of    4.88MiB at  Unknown B/s ETA Unknown[download]   0.1% of    4.88MiB at  Unknown B/s ETA Unknown[download]   0.1% of    4.88MiB at  Unknown B/s ETA Unknown[download]   0.3% of    4.88MiB at   10.35MiB/s ETA 00:00  [download]   0.6% of    4.88MiB at   17.11MiB/s ETA 00:00[download]   1.3% of    4.88MiB at   28.75MiB/s ETA 00:00[download]   2.5% of    4.88MiB at   32.58MiB/s ETA 00:00[download]   5.1% of    4.88MiB at   44.52MiB/s ETA 00:00[download]  10.2% of    4.88MiB at   65.27MiB/s ETA 00:00[download]  20.5% of    4.88MiB at   47.64MiB/s ETA 00:00[download]  40.9% of    4.88MiB at   77.10MiB/s ETA 00:00[download]  81.9% of    4.88MiB at  123.57MiB/s ETA 00:00[download] 100.0% of    4.88MiB at  140.82MiB/s ETA 00:00[download] 100% of    4.88MiB in 00:00:00 at 32.26MiB/s  
+[2026-05-01T05:05:35Z] New file downloaded for this URL.
+[2026-05-01T05:05:35Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-05-01T05:05:35Z] Copying downloaded files to downloads
+[2026-05-01T05:05:35Z] Processing URL #55:
+[2026-05-01T05:05:35Z] https://www.tiktok.com/@skilahdjs/video/7634746530666253582
+[TikTok] Extracting URL: https://www.tiktok.com/@skilahdjs/video/7634746530666253582
+[TikTok] 7634746530666253582: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7634746530666253582: Downloading 1 format(s): h264_720p_1802259-1
+[download] Destination: tmp_downloads/skilahdjs/@skilahdjs_2026-05-01_#techhouse #slayyyter #remix #electrohouse _7634746530666253582.mp4
+[download]   0.0% of    5.39MiB at  Unknown B/s ETA Unknown[download]   0.1% of    5.39MiB at  Unknown B/s ETA Unknown[download]   0.1% of    5.39MiB at    6.42MiB/s ETA 00:00  [download]   0.3% of    5.39MiB at    9.63MiB/s ETA 00:00[download]   0.6% of    5.39MiB at   16.18MiB/s ETA 00:00[download]   1.1% of    5.39MiB at   26.98MiB/s ETA 00:00[download]   2.3% of    5.39MiB at   35.66MiB/s ETA 00:00[download]   4.6% of    5.39MiB at   40.04MiB/s ETA 00:00[download]   9.3% of    5.39MiB at   57.47MiB/s ETA 00:00[download]  18.5% of    5.39MiB at   83.28MiB/s ETA 00:00[download]  37.1% of    5.39MiB at  113.20MiB/s ETA 00:00[download]  74.2% of    5.39MiB at  146.90MiB/s ETA 00:00[download] 100.0% of    5.39MiB at  163.28MiB/s ETA 00:00[download] 100% of    5.39MiB in 00:00:00 at 37.93MiB/s  
+[2026-05-01T05:05:36Z] New file downloaded for this URL.
+[2026-05-01T05:05:36Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-05-01T05:05:36Z] Copying downloaded files to downloads
+[2026-05-01T05:05:36Z] Processing URL #56:
+[2026-05-01T05:05:36Z] https://www.tiktok.com/@skillsawww/video/7634698044495236366
+[TikTok] Extracting URL: https://www.tiktok.com/@skillsawww/video/7634698044495236366
+[TikTok] 7634698044495236366: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7634698044495236366: Downloading 1 format(s): h264_720p_1983751-1
+[download] Destination: tmp_downloads/skillsawww/@skillsawww_2026-04-30_TikTok video #7634698044495236366_7634698044495236366.mp4
+[download]   0.1% of    1.88MiB at  Unknown B/s ETA Unknown[download]   0.2% of    1.88MiB at  Unknown B/s ETA Unknown[download]   0.4% of    1.88MiB at  Unknown B/s ETA Unknown[download]   0.8% of    1.88MiB at   11.33MiB/s ETA 00:00  [download]   1.6% of    1.88MiB at   18.78MiB/s ETA 00:00[download]   3.3% of    1.88MiB at   29.09MiB/s ETA 00:00[download]   6.6% of    1.88MiB at   32.65MiB/s ETA 00:00[download]  13.3% of    1.88MiB at   41.95MiB/s ETA 00:00[download]  26.6% of    1.88MiB at   54.86MiB/s ETA 00:00[download]  53.2% of    1.88MiB at   80.56MiB/s ETA 00:00[download] 100.0% of    1.88MiB at  118.55MiB/s ETA 00:00[download] 100% of    1.88MiB in 00:00:00 at 62.38MiB/s  
+[2026-05-01T05:05:37Z] New file downloaded for this URL.
+[2026-05-01T05:05:37Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-05-01T05:05:37Z] Copying downloaded files to downloads
+[2026-05-01T05:05:37Z] Preparing commit for: batch-7-after-35-successful-downloads
+[2026-05-01T05:05:37Z] Removing video files larger than 90MB from: downloads
