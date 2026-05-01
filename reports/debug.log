@@ -10790,3 +10790,160 @@ WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate 
 [2026-05-01T05:04:44Z] Copying downloaded files to downloads
 [2026-05-01T05:04:44Z] Preparing commit for: batch-4-after-20-successful-downloads
 [2026-05-01T05:04:44Z] Removing video files larger than 90MB from: downloads
+[main cb04aab] Add downloaded TikTok files batch-4-after-20-successful-downloads [skip ci]
+ 8 files changed, 200 insertions(+)
+ create mode 100644 "downloads/faith.robertsonnn/@faith.robertsonnn_2026-04-30_Yay carrots that don't taste like dirt \360\237\230\201\360\237\222\226 #recipe #roasted #carrots #..._7634674613649149214.mp4"
+ create mode 100644 "downloads/faith.robertsonnn/@faith.robertsonnn_2026-04-30_straight leg purrfect legging \360\237\253\266\360\237\217\274\360\237\230\274 #tiktokshop #favorite #leggings #re.._7634686846575889695.mp4"
+ create mode 100644 "downloads/faith.robertsonnn/@faith.robertsonnn_2026-04-30_torture them with ur success \360\237\222\226 ALL LOVE THO \360\237\230\217\342\234\250 #yap #perspective #gro..._7634649079976447263.mp4"
+ create mode 100644 "downloads/hannahschlenker/@hannahschlenker_2026-04-30_Cheese and crackers anyone\357\274\237_7634675365360766222.mp4"
+ create mode 100644 "downloads/jessinemec/@jessinemec_2026-04-30_Can\342\200\231t find the dc \357\274\237!_7634685403945094431.mp4"
+To https://github.com/theSadeQ/tiktok-downloader-ignore90MB-3
+   3b05f8b..cb04aab  HEAD -> main
+[2026-05-01T05:04:49Z] Batch committed and pushed successfully: batch-4-after-20-successful-downloads
+[2026-05-01T05:04:49Z] Processing URL #36:
+[2026-05-01T05:04:49Z] https://www.tiktok.com/@jessinemec/video/7634724107556277535
+[TikTok] Extracting URL: https://www.tiktok.com/@jessinemec/video/7634724107556277535
+[TikTok] 7634724107556277535: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7634724107556277535: Downloading 1 format(s): h264_720p_1154638-1
+[download] Destination: tmp_downloads/jessinemec/@jessinemec_2026-05-01_Who wants to be my partner for this 😆_7634724107556277535.mp4
+[download]   0.0% of    2.06MiB at  Unknown B/s ETA Unknown[download]   0.1% of    2.06MiB at    2.81MiB/s ETA 00:00  [download]   0.3% of    2.06MiB at    5.14MiB/s ETA 00:00[download]   0.7% of    2.06MiB at    8.07MiB/s ETA 00:00[download]   1.5% of    2.06MiB at   14.01MiB/s ETA 00:00[download]   3.0% of    2.06MiB at   23.86MiB/s ETA 00:00[download]   6.0% of    2.06MiB at   32.10MiB/s ETA 00:00[download]  12.1% of    2.06MiB at   42.71MiB/s ETA 00:00[download]  24.2% of    2.06MiB at   59.62MiB/s ETA 00:00[download]  48.4% of    2.06MiB at   87.49MiB/s ETA 00:00[download]  96.8% of    2.06MiB at  129.29MiB/s ETA 00:00[download] 100.0% of    2.06MiB at  129.81MiB/s ETA 00:00[download] 100% of    2.06MiB in 00:00:00 at 67.70MiB/s  
+[2026-05-01T05:04:50Z] New file downloaded for this URL.
+[2026-05-01T05:04:50Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-05-01T05:04:50Z] Copying downloaded files to downloads
+[2026-05-01T05:04:50Z] Processing URL #37:
+[2026-05-01T05:04:50Z] https://www.tiktok.com/@kianadalleave/video/7634643186463313182
+[TikTok] Extracting URL: https://www.tiktok.com/@kianadalleave/video/7634643186463313182
+[TikTok] 7634643186463313182: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+ERROR: [TikTok] 7634643186463313182: Unable to download webpage: HTTP Error 503: Service Unavailable (caused by <HTTPError 503: Service Unavailable>)
+[2026-05-01T05:04:54Z] yt-dlp returned exit code 1 for URL:
+[2026-05-01T05:04:54Z] https://www.tiktok.com/@kianadalleave/video/7634643186463313182
+[2026-05-01T05:04:54Z] No new file appeared for this URL.
+[2026-05-01T05:04:54Z] Possible reasons:
+[2026-05-01T05:04:54Z]   1. It was already downloaded and listed in downloaded_archive.txt
+[2026-05-01T05:04:54Z]   2. TikTok blocked public access
+[2026-05-01T05:04:54Z]   3. The URL is invalid or unavailable
+[2026-05-01T05:04:54Z]   4. Cookies are required
+[2026-05-01T05:04:54Z]   5. The video is larger than 90MB and was skipped
+[2026-05-01T05:04:54Z] Processing URL #38:
+[2026-05-01T05:04:54Z] https://www.tiktok.com/@lulu.broski/video/7634725016734584077
+[TikTok] Extracting URL: https://www.tiktok.com/@lulu.broski/video/7634725016734584077
+[TikTok] 7634725016734584077: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+ERROR: [TikTok] 7634725016734584077: Unable to download webpage: HTTP Error 503: Service Unavailable (caused by <HTTPError 503: Service Unavailable>)
+[2026-05-01T05:04:58Z] yt-dlp returned exit code 1 for URL:
+[2026-05-01T05:04:58Z] https://www.tiktok.com/@lulu.broski/video/7634725016734584077
+[2026-05-01T05:04:58Z] No new file appeared for this URL.
+[2026-05-01T05:04:58Z] Possible reasons:
+[2026-05-01T05:04:58Z]   1. It was already downloaded and listed in downloaded_archive.txt
+[2026-05-01T05:04:58Z]   2. TikTok blocked public access
+[2026-05-01T05:04:58Z]   3. The URL is invalid or unavailable
+[2026-05-01T05:04:58Z]   4. Cookies are required
+[2026-05-01T05:04:58Z]   5. The video is larger than 90MB and was skipped
+[2026-05-01T05:04:58Z] Processing URL #39:
+[2026-05-01T05:04:58Z] https://www.tiktok.com/@lulu.broski/video/7634731292000570638
+[TikTok] Extracting URL: https://www.tiktok.com/@lulu.broski/video/7634731292000570638
+[TikTok] 7634731292000570638: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+ERROR: [TikTok] 7634731292000570638: Unable to download webpage: HTTP Error 503: Service Unavailable (caused by <HTTPError 503: Service Unavailable>)
+[2026-05-01T05:05:01Z] yt-dlp returned exit code 1 for URL:
+[2026-05-01T05:05:01Z] https://www.tiktok.com/@lulu.broski/video/7634731292000570638
+[2026-05-01T05:05:01Z] No new file appeared for this URL.
+[2026-05-01T05:05:01Z] Possible reasons:
+[2026-05-01T05:05:01Z]   1. It was already downloaded and listed in downloaded_archive.txt
+[2026-05-01T05:05:01Z]   2. TikTok blocked public access
+[2026-05-01T05:05:01Z]   3. The URL is invalid or unavailable
+[2026-05-01T05:05:01Z]   4. Cookies are required
+[2026-05-01T05:05:01Z]   5. The video is larger than 90MB and was skipped
+[2026-05-01T05:05:01Z] Processing URL #40:
+[2026-05-01T05:05:01Z] https://www.tiktok.com/@lulu.broski/video/7634737149824290062
+[TikTok] Extracting URL: https://www.tiktok.com/@lulu.broski/video/7634737149824290062
+[TikTok] 7634737149824290062: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+ERROR: [TikTok] 7634737149824290062: Unable to download webpage: HTTP Error 503: Service Unavailable (caused by <HTTPError 503: Service Unavailable>)
+[2026-05-01T05:05:03Z] yt-dlp returned exit code 1 for URL:
+[2026-05-01T05:05:03Z] https://www.tiktok.com/@lulu.broski/video/7634737149824290062
+[2026-05-01T05:05:03Z] No new file appeared for this URL.
+[2026-05-01T05:05:03Z] Possible reasons:
+[2026-05-01T05:05:03Z]   1. It was already downloaded and listed in downloaded_archive.txt
+[2026-05-01T05:05:03Z]   2. TikTok blocked public access
+[2026-05-01T05:05:03Z]   3. The URL is invalid or unavailable
+[2026-05-01T05:05:03Z]   4. Cookies are required
+[2026-05-01T05:05:03Z]   5. The video is larger than 90MB and was skipped
+[2026-05-01T05:05:03Z] Processing URL #41:
+[2026-05-01T05:05:03Z] https://www.tiktok.com/@lulu.broski/video/7634737611332013325
+[TikTok] Extracting URL: https://www.tiktok.com/@lulu.broski/video/7634737611332013325
+[TikTok] 7634737611332013325: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+ERROR: [TikTok] 7634737611332013325: Unable to download webpage: HTTP Error 503: Service Unavailable (caused by <HTTPError 503: Service Unavailable>)
+[2026-05-01T05:05:07Z] yt-dlp returned exit code 1 for URL:
+[2026-05-01T05:05:07Z] https://www.tiktok.com/@lulu.broski/video/7634737611332013325
+[2026-05-01T05:05:07Z] No new file appeared for this URL.
+[2026-05-01T05:05:07Z] Possible reasons:
+[2026-05-01T05:05:07Z]   1. It was already downloaded and listed in downloaded_archive.txt
+[2026-05-01T05:05:07Z]   2. TikTok blocked public access
+[2026-05-01T05:05:07Z]   3. The URL is invalid or unavailable
+[2026-05-01T05:05:07Z]   4. Cookies are required
+[2026-05-01T05:05:07Z]   5. The video is larger than 90MB and was skipped
+[2026-05-01T05:05:07Z] Processing URL #42:
+[2026-05-01T05:05:07Z] https://www.tiktok.com/@madisonn.rainn/video/7634642777455791373
+[TikTok] Extracting URL: https://www.tiktok.com/@madisonn.rainn/video/7634642777455791373
+[TikTok] 7634642777455791373: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+ERROR: [TikTok] 7634642777455791373: Unexpected response from webpage request; please report this issue on  https://github.com/yt-dlp/yt-dlp/issues?q= , filling out the appropriate issue template. Confirm you are on the latest version using  yt-dlp -U
+[2026-05-01T05:05:11Z] yt-dlp returned exit code 1 for URL:
+[2026-05-01T05:05:11Z] https://www.tiktok.com/@madisonn.rainn/video/7634642777455791373
+[2026-05-01T05:05:11Z] No new file appeared for this URL.
+[2026-05-01T05:05:11Z] Possible reasons:
+[2026-05-01T05:05:11Z]   1. It was already downloaded and listed in downloaded_archive.txt
+[2026-05-01T05:05:11Z]   2. TikTok blocked public access
+[2026-05-01T05:05:11Z]   3. The URL is invalid or unavailable
+[2026-05-01T05:05:11Z]   4. Cookies are required
+[2026-05-01T05:05:11Z]   5. The video is larger than 90MB and was skipped
+[2026-05-01T05:05:11Z] Processing URL #43:
+[2026-05-01T05:05:11Z] https://www.tiktok.com/@magicschoolbusdropout777/video/7634636248744725791
+[TikTok] Extracting URL: https://www.tiktok.com/@magicschoolbusdropout777/video/7634636248744725791
+[TikTok] 7634636248744725791: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7634636248744725791: Downloading 1 format(s): h264_720p_1368205-1
+[download] Destination: tmp_downloads/magicschoolbusdropout777/@magicschoolbusdropout777_2026-04-30_Ahahahhahahha _7634636248744725791.mp4
+[download]   0.0% of    2.45MiB at  Unknown B/s ETA Unknown[download]   0.1% of    2.45MiB at  Unknown B/s ETA Unknown[download]   0.3% of    2.45MiB at  Unknown B/s ETA Unknown[download]   0.6% of    2.45MiB at   10.84MiB/s ETA 00:00  [download]   1.2% of    2.45MiB at   17.92MiB/s ETA 00:00[download]   2.5% of    2.45MiB at   29.74MiB/s ETA 00:00[download]   5.1% of    2.45MiB at   27.62MiB/s ETA 00:00[download]  10.2% of    2.45MiB at   40.19MiB/s ETA 00:00[download]  20.4% of    2.45MiB at   55.48MiB/s ETA 00:00[download]  40.8% of    2.45MiB at   78.51MiB/s ETA 00:00[download]  81.6% of    2.45MiB at  119.86MiB/s ETA 00:00[download] 100.0% of    2.45MiB at  138.59MiB/s ETA 00:00[download] 100% of    2.45MiB in 00:00:00 at 74.73MiB/s  
+[2026-05-01T05:05:12Z] New file downloaded for this URL.
+[2026-05-01T05:05:12Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-05-01T05:05:12Z] Copying downloaded files to downloads
+[2026-05-01T05:05:12Z] Processing URL #44:
+[2026-05-01T05:05:12Z] https://www.tiktok.com/@mandipandeee/video/7634646790964383006
+[TikTok] Extracting URL: https://www.tiktok.com/@mandipandeee/video/7634646790964383006
+[TikTok] 7634646790964383006: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7634646790964383006: Downloading 1 format(s): h264_720p_1622910-1
+[download] Destination: tmp_downloads/mandipandeee/@mandipandeee_2026-04-30_Good ole Coke Zero won’t hurt every once in a while 😛😛_7634646790964383006.mp4
+[download]   0.0% of   12.80MiB at  Unknown B/s ETA Unknown[download]   0.0% of   12.80MiB at    2.11MiB/s ETA 00:06  [download]   0.1% of   12.80MiB at    4.02MiB/s ETA 00:03[download]   0.1% of   12.80MiB at    6.92MiB/s ETA 00:01[download]   0.2% of   12.80MiB at   12.09MiB/s ETA 00:01[download]   0.5% of   12.80MiB at   20.91MiB/s ETA 00:00[download]   1.0% of   12.80MiB at   27.01MiB/s ETA 00:00[download]   1.9% of   12.80MiB at   36.56MiB/s ETA 00:00[download]   3.9% of   12.80MiB at   51.70MiB/s ETA 00:00[download]   7.8% of   12.80MiB at   76.39MiB/s ETA 00:00[download]  15.6% of   12.80MiB at  116.88MiB/s ETA 00:00[download]  31.2% of   12.80MiB at  180.21MiB/s ETA 00:00[download]  62.5% of   12.80MiB at  177.31MiB/s ETA 00:00[download]  93.7% of   12.80MiB at  227.83MiB/s ETA 00:00[download] 100.0% of   12.80MiB at  236.59MiB/s ETA 00:00[download] 100% of   12.80MiB in 00:00:00 at 182.39MiB/s 
+[2026-05-01T05:05:14Z] New file downloaded for this URL.
+[2026-05-01T05:05:14Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-05-01T05:05:14Z] Copying downloaded files to downloads
+[2026-05-01T05:05:14Z] Processing URL #45:
+[2026-05-01T05:05:14Z] https://www.tiktok.com/@officialchrisrockk/video/7634659094510570783
+[TikTok] Extracting URL: https://www.tiktok.com/@officialchrisrockk/video/7634659094510570783
+[TikTok] 7634659094510570783: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7634659094510570783: Downloading 1 format(s): bytevc1_720p_909741-1
+[download] Destination: tmp_downloads/officialchrisrockk/@officialchrisrockk_2026-04-30_TikTok video #7634659094510570783_7634659094510570783.mp4
+[download]   0.1% of    1.40MiB at  Unknown B/s ETA Unknown[download]   0.2% of    1.40MiB at  Unknown B/s ETA Unknown[download]   0.5% of    1.40MiB at    6.09MiB/s ETA 00:00  [download]   1.0% of    1.40MiB at    9.67MiB/s ETA 00:00[download]   2.2% of    1.40MiB at   15.42MiB/s ETA 00:00[download]   4.4% of    1.40MiB at   25.27MiB/s ETA 00:00[download]   8.9% of    1.40MiB at   34.87MiB/s ETA 00:00[download]  17.8% of    1.40MiB at   43.06MiB/s ETA 00:00[download]  35.7% of    1.40MiB at   61.63MiB/s ETA 00:00[download]  71.4% of    1.40MiB at   85.82MiB/s ETA 00:00[download] 100.0% of    1.40MiB at  107.58MiB/s ETA 00:00[download] 100% of    1.40MiB in 00:00:00 at 47.88MiB/s  
+[2026-05-01T05:05:15Z] New file downloaded for this URL.
+[2026-05-01T05:05:15Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-05-01T05:05:15Z] Copying downloaded files to downloads
+[2026-05-01T05:05:15Z] Processing URL #46:
+[2026-05-01T05:05:15Z] https://www.tiktok.com/@paaiiggey/video/7634651900817788174
+[TikTok] Extracting URL: https://www.tiktok.com/@paaiiggey/video/7634651900817788174
+[TikTok] 7634651900817788174: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7634651900817788174: Downloading 1 format(s): h264_720p_1006595-1
+[download] Destination: tmp_downloads/paaiiggey/@paaiiggey_2026-04-30_Dc @hobipower 👖 from @aelfriceden_official #aelfriceden #dance #cute _7634651900817788174.mp4
+[download]   0.1% of    1.37MiB at  Unknown B/s ETA Unknown[download]   0.2% of    1.37MiB at    2.26MiB/s ETA 00:00  [download]   0.5% of    1.37MiB at    4.13MiB/s ETA 00:00[download]   1.1% of    1.37MiB at    7.50MiB/s ETA 00:00[download]   2.2% of    1.37MiB at   13.14MiB/s ETA 00:00[download]   4.5% of    1.37MiB at   22.87MiB/s ETA 00:00[download]   9.0% of    1.37MiB at   24.02MiB/s ETA 00:00[download]  18.1% of    1.37MiB at   36.17MiB/s ETA 00:00[download]  36.3% of    1.37MiB at   47.97MiB/s ETA 00:00[download]  72.7% of    1.37MiB at   74.56MiB/s ETA 00:00[download] 100.0% of    1.37MiB at   93.04MiB/s ETA 00:00[download] 100% of    1.37MiB in 00:00:00 at 44.23MiB/s  
+[2026-05-01T05:05:16Z] New file downloaded for this URL.
+[2026-05-01T05:05:16Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-05-01T05:05:16Z] Copying downloaded files to downloads
+[2026-05-01T05:05:16Z] Preparing commit for: batch-5-after-25-successful-downloads
+[2026-05-01T05:05:16Z] Removing video files larger than 90MB from: downloads
