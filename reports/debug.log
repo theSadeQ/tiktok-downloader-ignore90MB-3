@@ -12929,3 +12929,70 @@ WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate 
 [2026-05-02T13:50:37Z] Copying downloaded files to downloads
 [2026-05-02T13:50:39Z] Preparing commit for: batch-24-after-120-successful-downloads
 [2026-05-02T13:50:39Z] Removing video files larger than 90MB from: downloads
+[main 93aa183] Add downloaded TikTok files batch-24-after-120-successful-downloads [skip ci]
+ 7 files changed, 72 insertions(+)
+ create mode 100644 downloads/avaalfaro/@avaalfaro_2026-04-04_i love this blue _7624999389588704542.mp4
+ create mode 100644 "downloads/avaalfaro/@avaalfaro_2026-04-04_no way this happened\342\200\246 #glitterdumpling #mysterydumpling #5below _7624933232919842078.mp4"
+ create mode 100644 downloads/avaalfaro/@avaalfaro_2026-04-04_princess is tired of watching me do this_7624945000543046942.mp4
+ create mode 100644 downloads/avaalfaro/@avaalfaro_2026-04-05_fav song rn_7625099458212105503.mp4
+ create mode 100644 downloads/avaalfaro/@avaalfaro_2026-04-05_happy easter pookies _7625333831813336350.mp4
+To https://github.com/theSadeQ/tiktok-downloader-ignore90MB-3
+   5bec689..93aa183  HEAD -> main
+[2026-05-02T13:50:44Z] Batch committed and pushed successfully: batch-24-after-120-successful-downloads
+[2026-05-02T13:50:44Z] Processing URL #123:
+[2026-05-02T13:50:44Z] https://www.tiktok.com/@avaalfaro/video/7625713533392604446
+[TikTok] Extracting URL: https://www.tiktok.com/@avaalfaro/video/7625713533392604446
+[TikTok] 7625713533392604446: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7625713533392604446: Downloading 1 format(s): bytevc1_1080p_2111982-1
+[download] Destination: tmp_downloads/avaalfaro/@avaalfaro_2026-04-06_lip combo 4 life @Summer Fridays _7625713533392604446.mp4
+[download]   0.0% of    2.79MiB at  Unknown B/s ETA Unknown[download]   0.1% of    2.79MiB at  Unknown B/s ETA Unknown[download]   0.2% of    2.79MiB at  Unknown B/s ETA Unknown[download]   0.5% of    2.79MiB at   12.28MiB/s ETA 00:00  [download]   1.1% of    2.79MiB at   20.22MiB/s ETA 00:00[download]   2.2% of    2.79MiB at    3.52MiB/s ETA 00:00[download]   4.4% of    2.79MiB at    3.12MiB/s ETA 00:00[download]   8.9% of    2.79MiB at    4.35MiB/s ETA 00:00[download]  17.9% of    2.79MiB at    6.55MiB/s ETA 00:00[download]  35.7% of    2.79MiB at   10.35MiB/s ETA 00:00[download]  71.5% of    2.79MiB at   17.19MiB/s ETA 00:00[download] 100.0% of    2.79MiB at   22.86MiB/s ETA 00:00[download] 100% of    2.79MiB in 00:00:00 at 5.90MiB/s   
+[2026-05-02T13:50:45Z] New file downloaded for this URL.
+[2026-05-02T13:50:45Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-05-02T13:50:45Z] Copying downloaded files to downloads
+[2026-05-02T13:50:47Z] Processing URL #124:
+[2026-05-02T13:50:47Z] https://www.tiktok.com/@avaalfaro/video/7625850223507688735
+[TikTok] Extracting URL: https://www.tiktok.com/@avaalfaro/video/7625850223507688735
+[TikTok] 7625850223507688735: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7625850223507688735: Downloading 1 format(s): bytevc1_1080p_2017965-1
+[download] Destination: tmp_downloads/avaalfaro/@avaalfaro_2026-04-07_babydoll_7625850223507688735.mp4
+[download]   0.0% of    2.37MiB at  Unknown B/s ETA Unknown[download]   0.1% of    2.37MiB at  Unknown B/s ETA Unknown[download]   0.3% of    2.37MiB at  Unknown B/s ETA Unknown[download]   0.6% of    2.37MiB at   11.93MiB/s ETA 00:00  [download]   1.3% of    2.37MiB at   19.62MiB/s ETA 00:00[download]   2.6% of    2.37MiB at    3.27MiB/s ETA 00:00[download]   5.2% of    2.37MiB at    3.12MiB/s ETA 00:00[download]  10.5% of    2.37MiB at    4.22MiB/s ETA 00:00[download]  21.0% of    2.37MiB at    6.36MiB/s ETA 00:00[download]  42.1% of    2.37MiB at   10.18MiB/s ETA 00:00[download]  84.2% of    2.37MiB at   16.86MiB/s ETA 00:00[download] 100.0% of    2.37MiB at   19.78MiB/s ETA 00:00[download] 100% of    2.37MiB in 00:00:00 at 5.35MiB/s   
+[2026-05-02T13:50:49Z] New file downloaded for this URL.
+[2026-05-02T13:50:49Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-05-02T13:50:49Z] Copying downloaded files to downloads
+[2026-05-02T13:50:51Z] Processing URL #125:
+[2026-05-02T13:50:51Z] https://www.tiktok.com/@avaalfaro/video/7625850870562868510
+[TikTok] Extracting URL: https://www.tiktok.com/@avaalfaro/video/7625850870562868510
+[TikTok] 7625850870562868510: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7625850870562868510: Downloading 1 format(s): bytevc1_1080p_2396598-1
+[download] Destination: tmp_downloads/avaalfaro/@avaalfaro_2026-04-07_it’s so vibrant outside _7625850870562868510.mp4
+[download]   0.0% of    2.71MiB at  Unknown B/s ETA Unknown[download]   0.1% of    2.71MiB at  Unknown B/s ETA Unknown[download]   0.3% of    2.71MiB at  Unknown B/s ETA Unknown[download]   0.5% of    2.71MiB at   11.86MiB/s ETA 00:00  [download]   1.1% of    2.71MiB at   19.57MiB/s ETA 00:00[download]   2.3% of    2.71MiB at    2.96MiB/s ETA 00:00[download]   4.6% of    2.71MiB at    2.96MiB/s ETA 00:00[download]   9.2% of    2.71MiB at    3.95MiB/s ETA 00:00[download]  18.4% of    2.71MiB at    5.93MiB/s ETA 00:00[download]  36.8% of    2.71MiB at    9.43MiB/s ETA 00:00[download]  73.7% of    2.71MiB at   15.63MiB/s ETA 00:00[download] 100.0% of    2.71MiB at   20.74MiB/s ETA 00:00[download] 100% of    2.71MiB in 00:00:00 at 7.02MiB/s   
+[2026-05-02T13:50:55Z] New file downloaded for this URL.
+[2026-05-02T13:50:55Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-05-02T13:50:55Z] Copying downloaded files to downloads
+[2026-05-02T13:50:57Z] Processing URL #126:
+[2026-05-02T13:50:57Z] https://www.tiktok.com/@avaalfaro/video/7625851912901971230
+[TikTok] Extracting URL: https://www.tiktok.com/@avaalfaro/video/7625851912901971230
+[TikTok] 7625851912901971230: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7625851912901971230: Downloading 1 format(s): bytevc1_1080p_1922294-1
+[download] Destination: tmp_downloads/avaalfaro/@avaalfaro_2026-04-07_boom_7625851912901971230.mp4
+[download]   0.1% of    1.66MiB at  Unknown B/s ETA Unknown[download]   0.2% of    1.66MiB at  Unknown B/s ETA Unknown[download]   0.4% of    1.66MiB at  Unknown B/s ETA Unknown[download]   0.9% of    1.66MiB at   12.41MiB/s ETA 00:00  [download]   1.8% of    1.66MiB at   20.33MiB/s ETA 00:00[download]   3.7% of    1.66MiB at    2.88MiB/s ETA 00:00[download]   7.5% of    1.66MiB at    2.86MiB/s ETA 00:00[download]  15.0% of    1.66MiB at    3.83MiB/s ETA 00:00[download]  30.1% of    1.66MiB at    5.73MiB/s ETA 00:00[download]  60.2% of    1.66MiB at    9.17MiB/s ETA 00:00[download] 100.0% of    1.66MiB at   14.42MiB/s ETA 00:00[download] 100% of    1.66MiB in 00:00:00 at 4.35MiB/s   
+[2026-05-02T13:50:58Z] New file downloaded for this URL.
+[2026-05-02T13:50:58Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-05-02T13:50:58Z] Copying downloaded files to downloads
+[2026-05-02T13:51:00Z] Processing URL #127:
+[2026-05-02T13:51:00Z] https://www.tiktok.com/@avaalfaro/video/7626801904986639646
+[TikTok] Extracting URL: https://www.tiktok.com/@avaalfaro/video/7626801904986639646
+[TikTok] 7626801904986639646: Downloading webpage
+WARNING: [TikTok] The extractor is attempting impersonation, but no impersonate target is available. If you encounter errors, then see  https://github.com/yt-dlp/yt-dlp#impersonation  for information on installing the required dependencies
+[info] 7626801904986639646: Downloading 1 format(s): bytevc1_1080p_1170714-1
+[download] Destination: tmp_downloads/avaalfaro/@avaalfaro_2026-04-09_song of the summer_7626801904986639646.mp4
+[download]   0.0% of    2.10MiB at  Unknown B/s ETA Unknown[download]   0.1% of    2.10MiB at  Unknown B/s ETA Unknown[download]   0.3% of    2.10MiB at  Unknown B/s ETA Unknown[download]   0.7% of    2.10MiB at   12.34MiB/s ETA 00:00  [download]   1.4% of    2.10MiB at    1.47MiB/s ETA 00:01[download]   2.9% of    2.10MiB at    2.91MiB/s ETA 00:00[download]   5.9% of    2.10MiB at    2.95MiB/s ETA 00:00[download]  11.9% of    2.10MiB at    3.95MiB/s ETA 00:00[download]  23.8% of    2.10MiB at    5.89MiB/s ETA 00:00[download]  47.6% of    2.10MiB at    9.34MiB/s ETA 00:00[download]  95.3% of    2.10MiB at   12.79MiB/s ETA 00:00[download] 100.0% of    2.10MiB at   13.36MiB/s ETA 00:00[download] 100% of    2.10MiB in 00:00:00 at 5.63MiB/s   
+[2026-05-02T13:51:02Z] New file downloaded for this URL.
+[2026-05-02T13:51:02Z] Removing video files larger than 90MB from: tmp_downloads
+[2026-05-02T13:51:02Z] Copying downloaded files to downloads
+[2026-05-02T13:51:04Z] Preparing commit for: batch-25-after-125-successful-downloads
+[2026-05-02T13:51:04Z] Removing video files larger than 90MB from: downloads
