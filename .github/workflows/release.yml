@@ -1,0 +1,66 @@
+name: Archive Large Repo Folder-by-Folder
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout target repo
+        uses: actions/checkout@v4
+        with:
+          repository: theSadeQ/tiktok-downloader-ignore90MB-2
+          path: repo
+          fetch-depth: 1
+          # lfs: true # enable this if the repo uses Git LFS
+
+      - name: Archive each folder into split parts
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p releases
+
+          cd repo
+
+          folders=(
+            "downloads/taliaafawaz"
+            "downloads/the.johnsonbrothers"
+            "downloads/thedailyshow"
+            "downloads/thegnarliestcarly"
+            "downloads/tshi.oh"
+            "downloads/tuckercarlsonnetwork"
+          )
+
+          for folder in "${folders[@]}"; do
+            echo "==== Processing: $folder ===="
+
+            if [ ! -d "$folder" ]; then
+              echo "Warning: folder does not exist: $folder"
+              continue
+            fi
+
+            safe=$(printf '%s' "$folder" | tr '/' '-')
+
+            mkdir -p "../releases/$safe"
+
+            tar -czf - "$folder" | split \
+              -b 1024M \
+              -d \
+              -a 3 \
+              --numeric-suffixes=1 \
+              - "../releases/$safe/$safe.tar.gz."
+
+            echo "Finished: $folder"
+          done
+
+      - name: Upload all parts to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: folder-archives
+          files: releases/**/*
